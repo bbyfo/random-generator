@@ -3,7 +3,7 @@
 $output = new stdClass();
 $output->formHelper = array();
 // Connect to database server
-$db = mysql_connect("localhost", "root", "quickstart");
+$db = mysql_connect($OPENSHIFT_MYSQL_DB_HOST, $OPENSHIFT_MYSQL_DB_USERNAME, $OPENSHIFT_MYSQL_DB_PASSWORD);
 if (!$db) {
   die("Database connection failed miserably: " . mysql_error());
 }
