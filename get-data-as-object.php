@@ -3,16 +3,20 @@
 $output = new stdClass();
 $output->formHelper = array();
 // Connect to database server
-$dbhost = getenv('OPENSHIFT_MYSQL_DB_HOST');
-$dbuser = getenv('OPENSHIFT_MYSQL_DB_USERNAME');
-$dbpwd = getenv('OPENSHIFT_MYSQL_DB_PASSWORD');
+
+
+$dbhost = (getenv('OPENSHIFT_MYSQL_DB_HOST') ? getenv('OPENSHIFT_MYSQL_DB_HOST') : "localhost");
+
+$dbuser = (getenv('OPENSHIFT_MYSQL_DB_USERNAME') ? getenv('OPENSHIFT_MYSQL_DB_USERNAME') : "phptojs_dev");
+
+$dbpwd = (getenv('OPENSHIFT_MYSQL_DB_PASSWORD') ? getenv('OPENSHIFT_MYSQL_DB_PASSWORD') : "mylocaldev");
 
 $db = mysql_connect($dbhost, $dbuser, $dbpwd);
 if (!$db) {
   die("Database connection failed miserably: " . mysql_error());
 }
 // Select the database
-$db_select = mysql_select_db("php", $db);
+$db_select = mysql_select_db("rpgaid", $db);
 if (!$db_select) {
   die("Database selection also failed miserably: " . mysql_error());
 }
