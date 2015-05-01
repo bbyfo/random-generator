@@ -12,7 +12,7 @@ if (!$db) {
   die("Database connection failed miserably: " . mysql_error());
 }
 // Select the database
-$db_select = mysql_select_db("rpgaid", $db);
+$db_select = mysql_select_db("php", $db);
 if (!$db_select) {
   die("Database selection also failed miserably: " . mysql_error());
 }
