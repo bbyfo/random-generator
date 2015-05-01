@@ -23,42 +23,48 @@ if (!$db_select) {
 
 //Step3
 
-$datakeys_result = mysql_query("SELECT DISTINCT datakey,title FROM gen_data ORDER BY title", $db);
+$datakeys_result = mysql_query("SELECT DISTINCT
+  mdid,datakey,title
+  FROM gen_metadata
+  ORDER BY title", $db);
 if (!$datakeys_result) {
   die("Database query failed: " . mysql_error());
 }
 
 while ($row = mysql_fetch_array($datakeys_result)) {
-$stringholder = new stdClass();
- /*
-  print "<pre>row: ";
-  print_r($row);
-  print "</pre>";
-  // */
+  $stringholder = new stdClass();
+  /*
+    print "<pre>row: ";
+    print_r($row);
+    print "</pre>";
+    // */
   $mystring = $row['datakey'];
-  $strings_result = mysql_query("SELECT string,`range`, title FROM gen_data where datakey = '$mystring' ORDER BY title", $db);
+  $strings_result = mysql_query("SELECT gd.string, gd.`range`, gmd.title
+          FROM gen_data gd
+          INNER JOIN gen_metadata gmd ON gd.mdid = gmd.mdid
+          where datakey = '$mystring' ORDER BY title", $db);
 
   $i = 1;
   while ($stringrow = mysql_fetch_array($strings_result)) {
-if($stringrow['range'] != ""){
-$stringholder->$stringrow['range'] = $stringrow['string'];
-}else{
-  $stringholder->$i = $stringrow['string'];
-  $i++;
-}
-/*
-    print "<pre>bobo: ";
-    print_r($bobo);
-    print "</pre>";
-    // */
+    if ($stringrow['range'] != "") {
+      $stringholder->$stringrow['range'] = $stringrow['string'];
+    } else {
+      $stringholder->$i = $stringrow['string'];
+      $i++;
+    }
+    /*
+      print "<pre>bobo: ";
+      print_r($bobo);
+      print "</pre>";
+      // */
   }
-$output->$row['datakey'] = $stringholder;
-$output->formHelper[$row['datakey']] = $row['title'];
+  $output->$row['datakey'] = $stringholder;
+  $output->formHelper[$row['datakey']] = $row['title'];
 };
 
 
 //Step4
- /*
+/*
   print "<pre>output: ";
   print_r($output);
   print "</pre>";

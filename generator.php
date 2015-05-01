@@ -8,8 +8,6 @@
   <body>
     Generate <input type="text" size="5" id="numgen" value="3" /> items of type
     <select id="typegen">
-      <option value="npc">NPC</option>
-      <option value="height">Height</option>
     </select>
     <button id="generate">Generate</button>
     <button id="genclear">Clear</button>
