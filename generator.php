@@ -1,21 +1,39 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="js/underscore-min.js"></script>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
 
 
   </head>
   <body>
+
+
     Generate <input type="text" size="5" id="numgen" value="3" /> items of type
     <select id="typegen">
     </select>
     <button id="generate">Generate</button>
     <button id="genclear">Clear</button>
 
+
+
     <div id="data-holder"></div>
 
-    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="js/underscore-min.js"></script>
+
+
     <script type="text/javascript" src="js/generator.js"></script>
     <script type="text/javascript" src="js/getdata.js"></script>
 
@@ -74,16 +92,7 @@
             holder.append("<p>" + genlist[i] + "</p>");
           };
         });
-
-
-        
-
-        
-
-
       };
-
-
     </script>
 
 
