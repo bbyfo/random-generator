@@ -2,50 +2,43 @@
 
 $output = new stdClass();
 $output->formHelper = array();
+
 // Connect to database server
-
-
 $dbhost = (getenv('OPENSHIFT_MYSQL_DB_HOST') ? getenv('OPENSHIFT_MYSQL_DB_HOST') : "localhost");
-
 $dbuser = (getenv('OPENSHIFT_MYSQL_DB_USERNAME') ? getenv('OPENSHIFT_MYSQL_DB_USERNAME') : "phptojs_dev");
-
 $dbpwd = (getenv('OPENSHIFT_MYSQL_DB_PASSWORD') ? getenv('OPENSHIFT_MYSQL_DB_PASSWORD') : "mylocaldev");
 
-$db = mysql_connect($dbhost, $dbuser, $dbpwd);
-if (!$db) {
-  die("Database connection failed miserably: " . mysql_error());
-}
-// Select the database
-$db_select = mysql_select_db("rpgaid", $db);
-if (!$db_select) {
-  die("Database selection also failed miserably: " . mysql_error());
-}
+$mysqli = new mysqli($dbhost, $dbuser, $dbpwd, "rpgaid");
 
-//Step3
 
-$datakeys_result = mysql_query("SELECT DISTINCT
+// Get all the metadata.  This is used to assemble the final gen_data variable in the JS, which is used by the
+// generator.js file.
+$datakeys_sql = "SELECT DISTINCT
   mdid,datakey,title
   FROM gen_metadata
-  ORDER BY title", $db);
-if (!$datakeys_result) {
-  die("Database query failed: " . mysql_error());
-}
+  ORDER BY title";
 
-while ($row = mysql_fetch_array($datakeys_result)) {
+$datakeys_results = $mysqli->query($datakeys_sql);
+
+
+while ($row = $datakeys_results->fetch_array(MYSQLI_ASSOC)) {
   $stringholder = new stdClass();
   /*
     print "<pre>row: ";
     print_r($row);
     print "</pre>";
     // */
+
+  // for each metadata datakey, grab all the actual data and prepare/assemble it for output
   $mystring = $row['datakey'];
-  $strings_result = mysql_query("SELECT gd.string, gd.`range`, gmd.title
+  $strings_sql = "SELECT gd.string, gd.`range`, gmd.title
           FROM gen_data gd
           INNER JOIN gen_metadata gmd ON gd.mdid = gmd.mdid
-          where datakey = '$mystring' ORDER BY title", $db);
+          where datakey = '$mystring' ORDER BY title";
+  $strings_result = $mysqli->query($strings_sql);
 
   $i = 1;
-  while ($stringrow = mysql_fetch_array($strings_result)) {
+  while ($stringrow = $strings_result->fetch_array(MYSQLI_ASSOC)) {
     if ($stringrow['range'] != "") {
       $stringholder->$stringrow['range'] = $stringrow['string'];
     } else {
@@ -58,12 +51,14 @@ while ($row = mysql_fetch_array($datakeys_result)) {
       print "</pre>";
       // */
   }
+
   $output->$row['datakey'] = $stringholder;
+  // This formHelper is used to populate select lists...and maybe more in the future.
   $output->formHelper[$row['datakey']] = $row['title'];
 };
 
 
-//Step4
+// Encode and spit out the output
 /*
   print "<pre>output: ";
   print_r($output);
