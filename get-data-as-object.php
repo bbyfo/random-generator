@@ -31,9 +31,9 @@ while ($row = $datakeys_results->fetch_array(MYSQLI_ASSOC)) {
 
   // for each metadata datakey, grab all the actual data and prepare/assemble it for output
   $mystring = $row['datakey'];
-  $strings_sql = "SELECT gd.string, gd.`range`, gmd.title
-          FROM gen_data gd
-          INNER JOIN gen_metadata gmd ON gd.mdid = gmd.mdid
+  $strings_sql = "SELECT gdata.string, gdata.`range`, gmd.title
+          FROM gen_data gdata
+          INNER JOIN gen_metadata gmd ON gdata.mdid = gmd.mdid
           where datakey = '$mystring' ORDER BY title";
   $strings_result = $mysqli->query($strings_sql);
 
