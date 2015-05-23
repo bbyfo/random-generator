@@ -69,7 +69,7 @@
 
         // Receive the data and do something with it.
         function workWithGenData(gen_data){
-
+console.log("gen_data", gen_data);
           /********************************************************************************************************
            * We want to get the formHelper out of the gen_data variable because it could cause problems later on
            * if we try to loop over the properties.
@@ -110,8 +110,8 @@
             
             var presetsGenValue = (presetInput.val() ? presetInput.val() : {});
 
-
-            console.log("presetsGenValue", presetsGenValue);
+presetsGenValue.pc = ["Andrelion", "Ossian", "Akiva", "Hash", "Isilme "];
+            //console.log("presetsGenValue", presetsGenValue);
 
             // Take the values in the form and generate some items.
             var genlist = generate_list(typeGenValue, numGenValue, presetsGenValue);
