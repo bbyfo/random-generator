@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sharpshooter Test</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+
+  </head>
+  <body>
+    <h1>Sharpshooter Feat: Is It Worth It?</h1>
+    <p>Sharpshooter (PHB 170) has 3 benefits:</p>
+    <dl>
+      <dt>Long Range</dt>
+      <dd>No disadvantage on long range of weapons</dd>
+      <dt>You can't hide bro</dt>
+      <dd>Ranged attacks ignore 1/2 and 3/4 cover</dd>
+      <dt>Trade accuracy for dmg</dt>
+      <dd>-5 to hit for +10 dmg</dd>
+    </dl>
+    <p>I'm trying to determine if taking Sharpshooter is worth it.</p>
+
+    <div id="form-container">
+      Rounds to simulate: <input type="text" id="rounds" /><br />
+      #Atks/action: <input type="text" id="attacks-num" /><br />
+      Atk Bonus (normal): <input type="text" id="attacks-bonus" /><br />
+      Dmg Die: <select id="attacks-dmg-die">
+        <option value="4">d4</option>
+        <option value="6">d6</option>
+        <option value="8">d8</option>
+        <option value="10">d10</option>
+        <option value="12">d12</option>
+      </select><br />
+      Dmg bonus: <input type="text" id="attacks-dmg-bonus" /><br />
+      Vs. AC: <input type="text" id="vs-ac" /><br />
+      <button type="button" id="run-sim">Run Simulation</button>
+
+    </div>
+
+    <div id="results-container">
+      <p>Here be the results.</p>
+      Total Attacks Attempted: <span class="res-num-attacks"></span>
+      <dl>
+        <dt>Normal Attacks </dt>
+        <dd><span id="res-num-hits-normal"></span> hits</dd>
+        <dd><span id="res-dmg-normal"></span> dmg</dd>
+        <dd><span id="res-accuracy-normal"></span>% accuracy</dd>
+        <dd><span id="res-dmg-per-hit-normal"></span> dmg per hit</dd>
+        <dd><span id="res-dmg-per-atk-normal"></span> dmg per attack</dd>
+
+        <dt>Sharpshooter Attacks </dt>
+        <dd><span id="res-num-hits-ss"></span> hits</dd>
+        <dd><span id="res-dmg-ss"></span> dmg</dd>
+        <dd><span id="res-accuracy-ss"></span>% accuracy</dd>
+        <dd><span id="res-dmg-per-hit-ss"></span> dmg per hit</dd>
+        <dd><span id="res-dmg-per-atk-ss"></span> dmg per attack</dd>
+      </dl>
+      <p>Difference between Sharpshooter and normal dmg:
+        <span id="res-ss-vs-normal-dmg"></span></p>
+    </div>
+
+    <script type="text/javascript">
+      $("#run-sim").click(runSim);
+
+      function dieRoll(d,b){
+        if(!d) d = 6;
+        if(!b) b = 0;
+        var roll = 1 + Math.floor(Math.random() * d);
+        var total = parseInt(roll) + parseInt(b);
+        //console.log("Rolled a d" + d + " and got a " + roll + " + " + b + " total: " + total);
+        return total;
+      }
+
+      function runSim(){
+        // How many times to run the sim
+        
+        //console.log("test", $("#attacks-num").val());
+
+        var rounds = $("#rounds").val() ? $("#rounds").val() : 1;
+        var atksNum = $("#attacks-num").val() ? $("#attacks-num").val() : 1;
+        var atksBonus = $("#attacks-bonus").val() ? $("#attacks-bonus").val() : 0;
+        var atksDmgDie = $("#attacks-dmg-die").val() ? $("#attacks-dmg-die").val() : 4;
+        var atksDmgBonus = $("#attacks-dmg-bonus").val() ? $("#attacks-dmg-bonus").val() : 0;
+        var vsAC = $("#vs-ac").val() ? $("#vs-ac").val() : 10;
+
+        //console.log("num rounds", rounds);
+        //console.log("num atks", atksNum);
+        //console.log("atk bonus", atksBonus);
+        //console.log("dmg die", atksDmgDie);
+        //console.log("dmg bonus", atksDmgBonus);
+        //console.log("vs AC", vsAC);
+        
+        var results = {};
+        results['normalHits'] = 0;
+        results['normalDmg'] = 0;
+        results['ssHits'] = 0;
+        results['ssDmg'] = 0;
+
+        // Simulate "numSims" number of rounds
+        for(r=1;r<=rounds;r++){ // r = round
+          // Simulate attack rolls
+          for(na=1;na<=atksNum;na++){
+            var atkResult = dieRoll(20,atksBonus);
+            //console.log("Normal Roll: " + atkResult + " / SS: " + (atkResult -5));
+
+            // Use the same dmg roll for each hit, to keep the comparisons proper.
+            var dmgRoll = dieRoll(atksDmgDie, atksDmgBonus);
+            // Does the normal attack roll hit?
+            if(atkResult >= vsAC){
+              results['normalHits'] += 1;
+              results['normalDmg'] += dmgRoll;
+            }
+            // Does the Sharpshooter attack roll hit?
+            if((atkResult -5) >= vsAC){
+              results['ssHits'] += 1;
+              results['ssDmg'] += (dmgRoll + 10);
+            }
+
+
+          }
+        }
+        //console.log("Results", results);
+        // Total attacks made
+        $(".res-num-attacks").text(function(){
+          return rounds * atksNum;
+        });
+        // Normal hits scored
+        $("#res-num-hits-normal").text(results['normalHits']);
+        // Normal damage total
+        $("#res-dmg-normal").text(results['normalDmg']);
+        // Normal accuracy %
+        $("#res-accuracy-normal").text(function(){
+          var accNormal = results['normalHits'] / (rounds * atksNum) * 100
+          return accNormal.toFixed(2);
+        });
+        // Normal dmg per hit
+        $("#res-dmg-per-hit-normal").text(function(){
+          var dphn = results['normalDmg'] / results['normalHits'];
+          return dphn.toFixed(2);
+        });
+        // Normal dmg per attack
+        $("#res-dmg-per-atk-normal").text(function(){
+          var dpan = results['normalDmg'] / (rounds * atksNum);
+          return dpan.toFixed(2);
+        });
+
+
+        // Sharpshooter hits scored
+        $("#res-num-hits-ss").text(results['ssHits']);
+        // Sharpshooter damage total
+        $("#res-dmg-ss").text(results['ssDmg']);
+        // Sharpshooter accuracy %
+        $("#res-accuracy-ss").text(function(){
+          var accSS = results['ssHits'] / (rounds * atksNum) * 100
+          return accSS.toFixed(2);
+        });
+        // Sharpshooter damage per hit
+        $("#res-dmg-per-hit-ss").text(function(){
+          var dphs = results['ssDmg'] / results['ssHits'];
+          return dphs.toFixed(2);
+        });
+        // Sharpshooter damage per attack
+        $("#res-dmg-per-atk-ss").text(function(){
+          var dpas = results['ssDmg'] / (rounds * atksNum);
+          return dpas.toFixed(2);
+        });
+
+
+
+        // Sharpshooter vs Normal dmg total
+        $("#res-ss-vs-normal-dmg").text(function(){
+          return results['ssDmg'] - results['normalDmg'];
+        });
+
+      } // end runSim
+
+    </script>
+
+  </body>
+</html>
