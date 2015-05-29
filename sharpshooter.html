@@ -4,7 +4,11 @@
     <title>Sharpshooter Test</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-
+    <style type="text/css">
+      input[type="text"]{
+        width: 3em;
+      }
+    </style>
 
   </head>
   <body>
@@ -21,18 +25,18 @@
     <p>I'm trying to determine if taking Sharpshooter is worth it.</p>
 
     <div id="form-container">
-      Rounds to simulate: <input type="text" id="rounds" /><br />
-      #Atks/action: <input type="text" id="attacks-num" /><br />
-      Atk Bonus (normal): <input type="text" id="attacks-bonus" /><br />
-      Dmg Die: <select id="attacks-dmg-die">
+      <input type="text" id="rounds" /> Rounds to simulate<br />
+      <input type="text" id="attacks-num" /> #Atks/action<br />
+      <input type="text" id="attacks-bonus" /> Atk Bonus (normal):<br />
+      <select id="attacks-dmg-die">
         <option value="4">d4</option>
         <option value="6">d6</option>
         <option value="8">d8</option>
         <option value="10">d10</option>
         <option value="12">d12</option>
-      </select><br />
-      Dmg bonus: <input type="text" id="attacks-dmg-bonus" /><br />
-      Vs. AC: <input type="text" id="vs-ac" /><br />
+      </select> Dmg Die<br />
+      <input type="text" id="attacks-dmg-bonus" /> Dmg bonus (per die) <br />
+      <input type="text" id="vs-ac" /> Vs. AC (opponents AC)<br />
       <button type="button" id="run-sim">Run Simulation</button>
 
     </div>
@@ -55,8 +59,8 @@
         <dd><span id="res-dmg-per-hit-ss"></span> dmg per hit</dd>
         <dd><span id="res-dmg-per-atk-ss"></span> dmg per attack</dd>
       </dl>
-      <p>Difference between Sharpshooter and normal dmg:
-        <span id="res-ss-vs-normal-dmg"></span></p>
+      <p>Sharpshooter did <strong><span id="res-ss-vs-normal-dmg"></span></strong> more damage.
+        </p>
     </div>
 
     <script type="text/javascript">
