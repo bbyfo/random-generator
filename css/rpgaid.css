@@ -1,0 +1,23 @@
+/* 
+    Document   : rpgaid
+    Created on : May 6, 2015, 2:14:30 PM
+    Author     : quickstart
+    Description:
+        Purpose of the stylesheet follows.
+*/
+.invalid,.valid{
+  padding:2px;
+  color:black;
+  font-weight: bold;
+  border-width: 2px;
+  border-style: solid;
+}
+.invalid{
+  border-color:red;
+  background-color:pink;
+
+}
+.valid{
+  border-color:green;
+  background-color:lightgreen;
+}

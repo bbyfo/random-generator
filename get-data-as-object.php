@@ -1,5 +1,6 @@
 <?php
 
+
 $output = new stdClass();
 $output->formHelper = array();
 
@@ -64,5 +65,8 @@ while ($row = $datakeys_results->fetch_array(MYSQLI_ASSOC)) {
   print_r($output);
   print "</pre>";
   // */
+
+$output->params = $_GET;
+
 echo json_encode($output);
 ?>

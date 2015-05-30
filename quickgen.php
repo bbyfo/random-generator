@@ -19,7 +19,7 @@
     <!-- Custom RPGAid CSS -->
     <link rel="stylesheet" href="css/rpgaid.css">
 
-
+    <title>Quick Generate - RPGAid</title>
   </head>
   <body>
     <div class="container-fluid">
@@ -27,14 +27,16 @@
         <button id="generate" class="btn btn-primary">Generate</button> <input type="text" size="5" id="numgen" value="3" /> items of type
         <select id="typegen">
         </select>
-
+        <a href="adddata.php">Add some new values</a>
 
       </div>
 
       <div class="row">
         <div class="col-xs-8">
           <div id="data-holder">
-            <h2>Generated data</h2><button id="genclear">Clear</button>
+            <h2>Generated data</h2>
+            <button id="genclear">Clear</button>
+            <button id="regen">Regenerate</button>
             <div id="data-content"></div>
           </div>
         </div>
@@ -59,7 +61,8 @@
 
       <script>
 
-        // Get all the data and set gen_data to the proper format
+        // Get all the data and set gen_data to the proper format.
+        // getData() is located in /js/getdata.js
         getData({
           dataset:'all'
         });
@@ -69,7 +72,7 @@
 
         // Receive the data and do something with it.
         function workWithGenData(gen_data){
-console.log("gen_data", gen_data);
+          //console.log("gen_data", gen_data);
           /********************************************************************************************************
            * We want to get the formHelper out of the gen_data variable because it could cause problems later on
            * if we try to loop over the properties.
@@ -92,6 +95,7 @@ console.log("gen_data", gen_data);
           var presetExamples = $("#preset-examples");
 
           var clearButton = $("#genclear");
+          var regenButton = $("#regen");
 
           /********************************************************************************************************
            * Set up our Event Handlers
@@ -110,7 +114,7 @@ console.log("gen_data", gen_data);
             
             var presetsGenValue = (presetInput.val() ? presetInput.val() : {});
 
-presetsGenValue.pc = ["Andrelion", "Ossian", "Akiva", "Hash", "Isilme "];
+            presetsGenValue.pc = ["Andrelion", "Ossian", "Akiva", "Hash", "Isilme "];
             //console.log("presetsGenValue", presetsGenValue);
 
             // Take the values in the form and generate some items.
@@ -124,6 +128,11 @@ presetsGenValue.pc = ["Andrelion", "Ossian", "Akiva", "Hash", "Isilme "];
           // Clear the text in the data holder area
           clearButton.click(function(){
             dataHolderContent.text("");
+          });
+          // Clear and repopulate the text in the data holder area
+          regenButton.click(function(){
+            dataHolderContent.text("");
+            generateButton.trigger('click');
           });
 
           /********************************************************************************************************
