@@ -4,27 +4,31 @@
     <title>Sharpshooter Test</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-    <style type="text/css">
-      input[type="text"]{
-        width: 3em;
-      }
-    </style>
+    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="css/rpgaid.css" />
 
   </head>
-  <body>
-    <h1>Sharpshooter Feat: Is It Worth It?</h1>
-    <p>Sharpshooter (PHB 170) has 3 benefits:</p>
-    <dl>
-      <dt>Long Range</dt>
-      <dd>No disadvantage on long range of weapons</dd>
-      <dt>You can't hide bro</dt>
-      <dd>Ranged attacks ignore 1/2 and 3/4 cover</dd>
-      <dt>Trade accuracy for dmg</dt>
-      <dd>-5 to hit for +10 dmg</dd>
-    </dl>
-    <p>I'm trying to determine if taking Sharpshooter is worth it.</p>
+  <body class="sharpshooter">
+    <div id="help-container">
+      <h1>Help</h1>
+      <h2>Sharpshooter Feat: Is It Worth It?</h2>
+      <p>Sharpshooter (PHB 170) has 3 benefits:</p>
+      <dl>
+        <dt>Long Range</dt>
+        <dd>No disadvantage on long range of weapons</dd>
+        <dt>You can't hide bro</dt>
+        <dd>Ranged attacks ignore 1/2 and 3/4 cover</dd>
+        <dt>Trade accuracy for dmg</dt>
+        <dd>-5 to hit for +10 dmg</dd>
+      </dl>
+      <p>I'm trying to determine if taking Sharpshooter is worth it.</p>
+
+
+    </div>
 
     <div id="form-container">
+      <h2>Settings</h2>
       <input type="text" id="rounds" /> Rounds to simulate<br />
       <input type="text" id="attacks-num" /> #Atks/action<br />
       <input type="text" id="attacks-bonus" /> Atk Bonus (normal):<br />
@@ -39,10 +43,11 @@
       <input type="text" id="vs-ac" /> Vs. AC (opponents AC)<br />
       <button type="button" id="run-sim">Run Simulation</button>
 
+
     </div>
 
     <div id="results-container">
-      <p>Here be the results.</p>
+      <h2>Here be the results.</h2>
       Total Attacks Attempted: <span class="res-num-attacks"></span>
       <dl>
         <dt>Normal Attacks </dt>
@@ -60,8 +65,16 @@
         <dd><span id="res-dmg-per-atk-ss"></span> dmg per attack</dd>
       </dl>
       <p>Sharpshooter did <strong><span id="res-ss-vs-normal-dmg"></span></strong> more damage.
-        </p>
+      </p>
     </div>
+
+    <div id="controls-container">
+      <button id="open-form">Settings</button>
+      <button id="open-help">Help</button>
+
+    </div>
+
+
 
     <script type="text/javascript">
       $("#run-sim").click(runSim);
@@ -177,6 +190,34 @@
         });
 
       } // end runSim
+
+
+
+    </script>
+
+    <script>
+      // Displaying and positioning the settings form
+
+
+      var helpContainer = $("#help-container");
+      var openHelpBtn = $("#open-help");
+
+      // Open Help Open Button
+      openHelpBtn.click(function(){
+        helpContainer.toggleClass('open');
+      });
+
+
+
+      var formContainer = $("#form-container");
+      var openFormBtn = $("#open-form");
+
+      // Open Form Button
+      openFormBtn.click(function(){
+        formContainer.toggleClass('open');
+      });
+
+
 
     </script>
 
