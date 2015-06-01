@@ -31,7 +31,7 @@ body.sharpshooter{
   left: 0;
   width:100%;
   height:20px;
-  background-color:blue;
+  background-color:  #aaa;
   color:white;
   z-index:1;
 }
@@ -50,7 +50,8 @@ body.sharpshooter{
 
 #form-container{
   left:-100%;
-  background-color:lime;
+background-color:  background;
+color:white;
 }
 #form-container.open{
   left:0%;
@@ -59,7 +60,7 @@ body.sharpshooter{
 
 #help-container{
   left:100%;
-  background-color:blue;
+  background-color:white;
 }
 
 #help-container.open{
@@ -96,7 +97,8 @@ body.sharpshooter{
   top:0;
   left:0;
   z-index:3;
-  background-color:red;
+  background-color: #069;
+  color:white;
   margin:0;
   padding:0px;
 }
@@ -108,4 +110,8 @@ body.sharpshooter{
   width:100%;
   margin:0;
   margin-bottom:30px;
+}
+
+#form-container input[type="text"]{
+  width:40px;
 }
