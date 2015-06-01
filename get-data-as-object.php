@@ -15,8 +15,8 @@ $mysqli = new mysqli($dbhost, $dbuser, $dbpwd, "rpgaid");
 // Get all the metadata.  This is used to assemble the final gen_data variable in the JS, which is used by the
 // generator.js file.
 $datakeys_sql = "SELECT DISTINCT
-  mdid,datakey,title
-  FROM gen_metadata
+  tid,datakey,title
+  FROM templates
   ORDER BY title";
 
 $datakeys_results = $mysqli->query($datakeys_sql);
@@ -32,9 +32,9 @@ while ($row = $datakeys_results->fetch_array(MYSQLI_ASSOC)) {
 
   // for each metadata datakey, grab all the actual data and prepare/assemble it for output
   $mystring = $row['datakey'];
-  $strings_sql = "SELECT gdata.string, gdata.`range`, gmd.title
+  $strings_sql = "SELECT gdata.string, gdata.`range`, tpls.title
           FROM gen_data gdata
-          INNER JOIN gen_metadata gmd ON gdata.mdid = gmd.mdid
+          INNER JOIN templates tpls ON gdata.tid = tpls.tid
           where datakey = '$mystring' ORDER BY title";
   $strings_result = $mysqli->query($strings_sql);
 

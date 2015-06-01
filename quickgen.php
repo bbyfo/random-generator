@@ -42,11 +42,7 @@
         </div>
         <div class="col-xs-4">
           <div id="preset-holder">
-            <h2>Presets</h2>
-            <div id="preset-form"> 
-              <input type="text" size="25" id="presets-input" />
-              <p class="help-block">Enter some help text here.</p>
-            </div>
+            <h2>Examples</h2>
             <div id="preset-examples">Example values: <ol></ol></div>
           </div>
         </div>
@@ -85,15 +81,10 @@
            ********************************************************************************************************/
           var typeGenField = $("#typegen");
           var numGenField = $("#numgen");
-
           var generateButton = $("#generate");
-          var dataHolder = $("#data-holder");
           var dataHolderContent = $("#data-content");
-
-          var presetHolder = $("#preset-holder");
           var presetInput = $("#presets-input");
           var presetExamples = $("#preset-examples");
-
           var clearButton = $("#genclear");
           var regenButton = $("#regen");
 

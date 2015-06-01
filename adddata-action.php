@@ -10,17 +10,17 @@ $dbpwd = (getenv('OPENSHIFT_MYSQL_DB_PASSWORD') ? getenv('OPENSHIFT_MYSQL_DB_PAS
 $mysqli = new mysqli($dbhost, $dbuser, $dbpwd, "rpgaid");
 
 $sql = "SELECT 
-  mdid
-  FROM gen_metadata
+  tid
+  FROM templates
   WHERE datakey = '" . $_GET['addTo'] . "'";
 
 $results = $mysqli->query($sql);
 
 while ($row = $results->fetch_array(MYSQLI_ASSOC)) {
-  $output = $row['mdid'];
-  $values = $row['mdid'] . ",'" . $_GET['newValue'] . "'";
+  $output = $row['tid'];
+  $values = $row['tid'] . ",'" . $_GET['newValue'] . "'";
 
-  $insert_sql = "INSERT INTO gen_data (mdid, `string`) VALUES (" . $values . ")";
+  $insert_sql = "INSERT INTO gen_data (tid, `string`) VALUES (" . $values . ")";
   $insert_results = $mysqli->query($insert_sql);
 }
 
