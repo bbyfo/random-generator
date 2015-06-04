@@ -24,12 +24,23 @@
   </head>
   <body>
     <div class="container-fluid">
+      <h1>Add data to RPGAid</h1>
       <div class="row">
-        Add new <select id="typegen"></select> called <input type="text" id="newvalue" />
-        <button id="addit">Add it</button><span id="msg-validate"></span>
+        <h2>Values</h2>
+        Add value to template <select id="addValueToTemplate"></select> called <input type="text" id="newvalue" />
+        <button id="addValue">Add value</button>
       </div>
-      <a href="quickgen.php">Generate some data</a>
+      <div class="row">
+        <h2>Templates</h2>
+        Add new template called <input type="text" id="newtemplate" />
+        <button id="addtemplatebutton">Add template</button>
+      </div>
+      <p>
+        <a href="quickgen.php">Generate data page</a>
+      </p>
     </div>
+
+    <div id="msg-validate"></div>
 
     <!-- recursive random generator script -->
     <script type="text/javascript" src="js/generator.js"></script>
@@ -42,9 +53,11 @@
     <script>
 
       // Get all the data and set gen_data to the proper format
+      // getData is in the getdata.js file
       getData({
         dataset:'all'
       });
+      // getData calls workWithGenData();
       // gen_data will not have the data yet.  I know, I know, it bites.  getOverIt() #suckItUpButterCup.
 
 
@@ -62,34 +75,70 @@
         /********************************************************************************************************
          * Set up our Variables
          ********************************************************************************************************/
-        var typeGenField = $("#typegen");
+        // Values
+        var addValueToTemplate = $("#addValueToTemplate");
         var newValue = $("#newvalue");
-        var addItButton = $("#addit");
+        var addValueButton = $("#addValue");
         var msgValidate = $("#msg-validate");
+
+        // Templates
+        var newTemplate = $("#newtemplate");
+        var addTemplateButton = $("#addtemplatebutton");
+
+
         /********************************************************************************************************
          * Set up our Event Handlers
          ********************************************************************************************************/
-        addItButton.click(function(){
-          $("#msg-result").text("");
-          if(newValue.val()){
+        // Add a value to a template
+        addValueButton.click(function(){
+          $("#msg-validate").text("");
+          if(newValue.val()){ // The value text field has something in it
+            // Add and remove CSS classes for styling
             msgValidate.removeClass("invalid");
             msgValidate.addClass("valid");
-            addIt(newValue.val(), typeGenField.val());
-          }else{
+
+            // addValue calls the adddata-action.php file and insrerts values into the database
+            addValue(newValue.val(), addValueToTemplate.val());
+
+          }else{ // Invalid
             msgValidate.text("Can't be blank");
-            msgValidate.addClass("invalid");
             msgValidate.removeClass("valid");
-            msgValidate.position({
-              my: "left top",
-              at: "left bottom",
-              of: "#newvalue"
-            });
+            msgValidate.addClass("invalid showme");
+            setTimeout(function(){
+              $("#msg-validate").removeClass("showme");
+            }, 2500);
+          }
+        });
+        // Trigger the addValue button when the user presses the 'enter' key'
+        newValue.keyup(function(e){
+          if(e.keyCode === 13){
+            addValueButton.trigger('click');
           }
         });
 
-        newValue.keyup(function(e){
+        // Add a new template
+        addTemplateButton.click(function(){
+          console.log("click addTemplateButton");
+          if(newTemplate.val()){ // The template text field has something in it
+            // Add and remove CSS classes for styling
+            msgValidate.removeClass("invalid");
+            msgValidate.addClass("valid");
+            // addTemplate calls the adddata-action.php file and insrerts template into the database
+            addTemplate(newTemplate.val());
+          }else{ // The template text field is empty
+            msgValidate.text("Can't be blank");
+            msgValidate.removeClass("valid");
+            msgValidate.addClass("invalid showme");
+            setTimeout(function(){
+              $("#msg-validate").removeClass("showme");
+            }, 2500);
+          }
+        });
+
+        // Trigger the addValue button when the user presses the 'enter' key'
+        newTemplate.keyup(function(e){
           if(e.keyCode === 13){
-            addItButton.trigger('click');
+            addTemplateButton.trigger('click');
           }
         });
 
@@ -101,7 +150,7 @@
         // Apply the options to the "items of type ____" field.
         $.each(formHelper, function(datakey, string){
           //console.log(datakey, string);
-          typeGenField
+          addValueToTemplate
           .append($("<option></option>")
           .attr("value", datakey)
           .text(string));
@@ -109,29 +158,61 @@
 
       }; // End of workWithGenData
 
-      function addIt(newValue, addTo){
-        //console.log("newValue in addIt()", newValue);
-        //console.log("addTo in addIt()", addTo);
+      /********************************************************************************
+       * Perform the work of adding data to the database
+       *  - This is shameful. I'm violating the DRY principle in a criminal way.
+       *  - addValue and addTemplate need to be one function addData() or something.
+       ********************************************************************************/
+
+
+      /*
+       * Add the new value to the database
+       * @param newValue string The actual value to add
+       * @param addToTemplate string The template to add the value to
+       */
+      function addValue(newValue, addToTemplate){
+        //console.log("newValue in addValue()", newValue);
+        //console.log("addTo in addValue()", addTo);
         //console.log("Add " + newValue + " to " + addTo);
        
         var params = {};
         params.newValue = newValue;
-        params.addTo = addTo;
+        params.addToTemplate = addToTemplate;
+        // putData is in the putdata.js file
         putData(params);
         $("#newvalue").focus();
       }
 
+      /*
+       * Add the new template to the database
+       * @param newTemplate string The actual template string to add
+       */
+      function addTemplate(newTemplate){
+        //console.log("newValue in addValue()", newValue);
+        //console.log("addTo in addValue()", addTo);
+        //console.log("Add " + newValue + " to " + addTo);
+
+        var params = {};
+        params.newTemplate = newTemplate;
+        // putData is in the putdata.js file
+        putData(params);
+        $("#newtemplate").focus();
+        $("#newtemplate").val("");
+      }
+
+      /********************************************************************************
+       * Let the user know data has been added.
+       ********************************************************************************/
       function workWithAddedData(data){
         //console.log("data in workWithAddedData", data);
-         $("#newvalue").val("");
+        $("#newvalue").val("");
         $("#msg-validate")
-        .addClass("valid")
-        .text("'" + data + "'" + " has been added.")
-        .position({
-          my: "left top",
-          at: "left bottom",
-          of: "#newvalue"
-        });
+        .addClass("valid showme")
+        .text("'" + data + "'" + " has been added.");
+
+        setTimeout(function(){
+          $("#msg-validate").removeClass("showme");
+        }, 2500);
       }
 
     </script>
