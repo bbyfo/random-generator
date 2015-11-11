@@ -147,7 +147,7 @@
             var valueSelected = optionSelected.val();
             // var textSelected = optionSelected.text(); // ??unused??
             var presetValues = gen_data[valueSelected];
-
+            console.log("presetValues", presetValues);
             var presetFormContainer = $("#preset-form");
 
             
