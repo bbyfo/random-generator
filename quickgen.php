@@ -170,7 +170,7 @@
             //console.log("textSelected: ", textSelected);
             //console.log("gen_data", gen_data);
 
-            //console.log("presetValues: ", presetValues);
+            console.log("presetValues (after sorting calamaty): ", presetValues);
 
 
             // Clear out the list items from the examples list
