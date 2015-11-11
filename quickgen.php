@@ -153,8 +153,9 @@
 	    for (prop in presetValues) {
 		      presetValuesArray.push(presetValues[prop]);
 	    }
+	    presetValuesArray.sort();
             console.log("Array PresetValues", presetValuesArray);
-
+            
 	    var presetFormContainer = $("#preset-form");
 
             
