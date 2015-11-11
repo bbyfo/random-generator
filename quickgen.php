@@ -147,8 +147,15 @@
             var valueSelected = optionSelected.val();
             // var textSelected = optionSelected.text(); // ??unused??
             var presetValues = gen_data[valueSelected];
-            console.log("presetValues", presetValues);
-            var presetFormContainer = $("#preset-form");
+	    
+	    console.log("Orij Obj presetValues", presetValues);
+	    var presetValuesArray = [];
+	    for (prop in presetValues) {
+		      presetValuesArray.push(presetValues[prop]);
+	    }
+            console.log("Array PresetValues", presetValuesArray);
+
+	    var presetFormContainer = $("#preset-form");
 
             
             //console.log("valueSelected: ", valueSelected);
