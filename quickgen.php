@@ -163,7 +163,10 @@
 		        return o;
 	    }, {});
 	    */
-	    presetValues = presetValuesArray.reduce(function(o,v,i){}, {});
+	    presetValues = presetValuesArray.reduce(function(o,v,i){
+		    o[i] = v;
+		    return o;
+	    }, {});
 	    //console.log("valueSelected: ", valueSelected);
             //console.log("textSelectedpend();
             //console.log("valueSelected: ", valueSelected);
