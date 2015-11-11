@@ -42,8 +42,8 @@
         </div>
         <div class="col-xs-4">
           <div id="preset-holder">
-            <h2>Examples</h2>
-            <div id="preset-examples">Example values: <ol></ol></div>
+            <h2>Template code</h2>
+            <div id="preset-examples">Template code: <ol></ol></div>
           </div>
         </div>
       </div>
@@ -164,7 +164,7 @@
             $(presetExamples).find("li").remove();
             // Show (up to) the first 3 elements of the values for the currently selected "type".
             var i = 1;
-            var maxShow = 3;
+            var maxShow = 99;
             for(var prop in presetValues){
               if(i <= maxShow){
                 //console.log(presetValues[prop]);
