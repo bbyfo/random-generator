@@ -157,9 +157,14 @@
             console.log("Array PresetValues", presetValuesArray);
             
 	    var presetFormContainer = $("#preset-form");
-
-            
-            //console.log("valueSelected: ", valueSelected);
+            /*
+	    var obj = arr.reduce(function(o, v, i) {
+		      o[i] = v;
+		        return o;
+	    }, {});
+	    */
+	    presetValues = presetValues.reduce(function(o,v,i){}, {});
+	    //console.log("valueSelected: ", valueSelected);
             //console.log("textSelectedpend();
             //console.log("valueSelected: ", valueSelected);
             //console.log("textSelected: ", textSelected);
