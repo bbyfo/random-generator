@@ -148,13 +148,13 @@
             // var textSelected = optionSelected.text(); // ??unused??
             var presetValues = gen_data[valueSelected];
 	    
-	    console.log("Orij Obj presetValues", presetValues);
+	    //console.log("Orij Obj presetValues", presetValues);
 	    var presetValuesArray = [];
 	    for (prop in presetValues) {
 		      presetValuesArray.push(presetValues[prop]);
 	    }
 	    presetValuesArray.sort();
-            console.log("Array PresetValues", presetValuesArray);
+            //console.log("Array PresetValues", presetValuesArray);
             
 	    var presetFormContainer = $("#preset-form");
             /*
@@ -173,7 +173,7 @@
             //console.log("textSelected: ", textSelected);
             //console.log("gen_data", gen_data);
 
-            console.log("presetValues (after sorting calamaty): ", presetValues);
+            //console.log("presetValues (after sorting calamaty): ", presetValues);
 
 
             // Clear out the list items from the examples list
