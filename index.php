@@ -212,6 +212,8 @@ line-height: 1.4;
     <dd>Quickly generate random elements</dd>
     <dt><a href="sharpshooter.html">Sharpshooter evaluation</a></dt>
     <dd>Determine if the Sharpshooter feat is worth it (spoiler: it pretty much is)</dd>
+    <dt><a href="https://openshift.redhat.com/app/login?then=%2Fapp%2Fconsole%2Fapplications">Sign in to OpenShift</a></dt>
+    <dd>OpenShift login page.</dd>
   </dl>
 
   <p>See the <a href="index2.php">original OpenShift index page</a>.</p>
