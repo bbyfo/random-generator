@@ -9,7 +9,7 @@ var gen_data = {};
 // generator function
 
 function generate_text (type, presets) {
-console.log("presets top of generate_text()", presets)
+//console.log("presets top of generate_text()", presets)
 
   var list; if (list = gen_data[type]) {
       //console.log("list", list);
@@ -31,14 +31,14 @@ console.log("presets top of generate_text()", presets)
 // generate multiple
 
 function generate_list (type, n_of, presets) {
-  console.log("presets top of generate_list()", presets);
+  //console.log("presets top of generate_list()", presets);
   var list = [];
 
   var i; for (i = 0; i < n_of; i++) {
-    console.log("presets being SENT TO >> generate_text", presets);
+    //console.log("presets being SENT TO >> generate_text", presets);
     list.push(generate_text(type, presets));
   }
-  console.log("list returned in generate_list", list);
+  //console.log("list returned in generate_list", list);
   return list;
 }
 
