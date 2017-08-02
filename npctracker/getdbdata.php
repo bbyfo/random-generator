@@ -18,7 +18,7 @@ $dbhost = (getenv('OPENSHIFT_MYSQL_DB_HOST') ? getenv('OPENSHIFT_MYSQL_DB_HOST')
 $dbuser = (getenv('OPENSHIFT_MYSQL_DB_USERNAME') ? getenv('OPENSHIFT_MYSQL_DB_USERNAME') : "npctracker");
 $dbpwd = (getenv('OPENSHIFT_MYSQL_DB_PASSWORD') ? getenv('OPENSHIFT_MYSQL_DB_PASSWORD') : "mylocaldev");
 
-$mysqli = new mysqli($dbhost, $dbuser, $dbpwd, "rpgaid");
+$mysqli = new mysqli($dbhost, $dbuser, $dbpwd, "npctracker");
 
     // Check connection
     if(mysqli_connect_errno()) {
