@@ -13,21 +13,12 @@ SELECT *
  WHERE npcID IN (2)
  */
 
-$dbuser = (getenv('OPENSHIFT_MYSQL_DB_USERNAME') ? getenv('OPENSHIFT_MYSQL_DB_USERNAME') : "phptojs_dev");
-$dbpwd = (getenv('OPENSHIFT_MYSQL_DB_PASSWORD') ? getenv('OPENSHIFT_MYSQL_DB_PASSWORD') : "mylocaldev");
-$db = 'npctracker';
+// Connect to database server
 $dbhost = (getenv('OPENSHIFT_MYSQL_DB_HOST') ? getenv('OPENSHIFT_MYSQL_DB_HOST') : "localhost");
-$port = 8889;
-$socket = 'localhost:/Applications/MAMP/tmp/mysql/mysql.sock';
+$dbuser = (getenv('OPENSHIFT_MYSQL_DB_USERNAME') ? getenv('OPENSHIFT_MYSQL_DB_USERNAME') : "npctracker");
+$dbpwd = (getenv('OPENSHIFT_MYSQL_DB_PASSWORD') ? getenv('OPENSHIFT_MYSQL_DB_PASSWORD') : "mylocaldev");
 
-$con = mysqli_connect(
-   $dbhost,
-   $dbuser,
-   $dbpwd,
-   $db,
-   $port,
-   $socket
-);
+$mysqli = new mysqli($dbhost, $dbuser, $dbpwd, "rpgaid");
 
     // Check connection
     if(mysqli_connect_errno()) {
@@ -76,7 +67,7 @@ switch($qp){
 
 		// THE QUERY SEEMS TO FAIL WHEN A NAME CONTAINS A '.
 		
-		$getnpcid = mysqli_fetch_assoc(mysqli_query($con, $npcidsql));
+		$getnpcid = mysqli_fetch_assoc(mysqli_query($mysqli, $npcidsql));
 		$npcid = $getnpcid['npcID'];
 		
 		var_export($getnpcid);
@@ -95,7 +86,7 @@ switch($qp){
 
 //var_export($sql);
 
- $result = mysqli_query($con, $sql);
+ $result = mysqli_query($mysqli, $sql);
 
     if(!$result) {
         die('Query failed: ' . mysqli_error());
