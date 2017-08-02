@@ -1,0 +1,18 @@
+{
+	"0":{"name": "Nicholas Rise",
+		"memberOfOrgs": ["Hell's Orphans", "Mars' Complication"],
+	    "opinionOfPcs": 0,
+		 "currentActivities": [
+			 {"activityType":"Travel", "activityDuration":3, "activityProgress":1, "activityDescription": "Limping and crawling home to Besh'Beya."},
+			 {"activityType":"Revenge", "activityDuration":21, "activityProgress":0, "activityDescription":"Plotting his nefarious revenge!!"}
+		 ]
+	},
+	"1":{"name": "Mim",
+		"memberOfOrgs": ["Mutant Monkeys"],
+		"opinionOfPcs": 1,
+		"currentActivities": [
+			{"activityType":"Hiding", "activityDuration":7, "activityDescription":"Cowering in the nearby woods."}
+		]
+		}
+	
+}

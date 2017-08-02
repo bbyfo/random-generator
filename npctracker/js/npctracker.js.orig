@@ -1,0 +1,160 @@
+/*
+ * What is this JS file supposed to do?
+ * 1. Gather data from the data source.
+ * 2. Display data in a pretty format on screen.
+ * 
+ *
+ */
+
+const NPC_OPINIONS = ['Hatered', 'Great Aversion', 'Aversion', 'Slight Aversion', 'Nothing', 'Neutral', 'Slight Favor', 'Favor', 'Great Favor', 'Devotion'];
+
+/*
+ * Activity "Class".
+ */
+function Activity(npc, activityType, activityDuration, activityProgress, activityDescription) {
+	this.npc = npc;
+	this.activityType = activityType;
+	this.activityDuration = activityDuration;
+	this.activityProgress = activityProgress;
+	this.activityDescription = activityDescription;
+}
+
+// Clean up the valueOf() for Activity.
+Activity.prototype.valueOf = function () {
+	var ret = "";
+	ret += this.npc.name + " is performing the " + this.activityType + " activity. Progress is " + this.activityProgress + "/" + this.activityDuration + " days.";
+	return ret;
+};
+
+/*
+ * Npc "Class".
+ */
+function Npc(name, memberOfOrgs, opinionOfPcs, currentActivities) {
+	this.name = name;
+	this.memberOfOrgs = memberOfOrgs;
+	this.opinionOfPcs = opinionOfPcs;
+	// Npcs have specially formatted opinions of the Pcs
+	if (typeof opinionOfPcs === "undefined") {
+		this.opinionOfPcs = 4;
+	}
+	//Npcs have activities they can perform.
+	this.currentActivities = currentActivities;
+	if (typeof currentActivities === "undefined") {
+		this.currentActivities = this.name + " isn't performing any activities right now";
+	}
+
+
+
+}
+// Clean up the valueOf() for Npc.
+Npc.prototype.valueOf = function () {
+
+
+	var ret = "";
+	ret += this.name;
+
+	if (this.memberOfOrgs.length > 0) {
+		var orgs = this.memberOfOrgs.toString();
+		ret += " is a member of " + orgs;
+	} else {
+		ret += " is not a member of any organizations"
+	}
+
+	ret += " and feels " + NPC_OPINIONS[this.opinionOfPcs] + " towards the PCs. ";
+
+	ret += ".";
+	return ret;
+};
+
+
+
+
+/*
+Samples / Experiments
+var nicholas_rise = new Npc("Nicholas Rise", ["Hell's Orphans", "Mars' Complication"], 0);
+
+var nicholas_journey_home = new Activity(nicholas_rise, "Travel", 3, 1, "Limping and crawling home to Besh'Beya.");
+var nicholas_revenge = new Activity(nicholas_rise, "Revenge", 21, 0, "Plotting his nefarious revenge!!");
+
+nicholas_rise.currentActivities = [nicholas_journey_home, nicholas_revenge];
+
+console.log(Activity.constructor);
+
+console.log(nicholas_rise.valueOf());
+console.log(nicholas_revenge.valueOf());
+
+var alec_el_cazador = new Npc("Alec El Cazador", ["Spanish Inquisition"], 7);
+//console.log(alec_el_cazador.valueOf());
+
+var nofeels = new Npc("No Feels", ["Bobo's Raiders"]);
+//console.log(nofeels.valueOf());
+
+var noOrgs = new Npc("No Orgs", [], 4);
+//console.log(noOrgs.valueOf());
+*/ // End Samples / Experiments
+
+// Do stuff when the page is fully loaded
+$(document).ready(function () {
+
+	/*
+	 * Get the data. 
+	 * NOTE: malformed JSON will result in a silent error. Use http://www.jsonlint.com/ to ensure the JSON file is error free.
+	 * @TODO change the .json file for a dynamically generated file (e.g. mysql -> php -> json).
+	 */
+	$.getJSON('./js/npctracker-datafile.json', function (data) {
+		//$.getJSON('./dbtest.php', function (data) {
+		//console.log("raw data: ", data);
+
+		var ret = "";
+
+
+		$.each(data, function (k, v) {
+			//console.log("k: ", k);
+			//console.log("v: ", v);
+
+			var npc = new Npc(v.name, v.memberOfOrgs, v.opinionOfPcs, v.currentActivities);
+
+			console.log("activities: ", npc.currentActivities);
+			var activityString = "";
+
+			if (npc.currentActivities.length > 0) {
+				npc.currentActivities.forEach(function (a) {
+					console.log("a: ", a);
+					activityString += '<p>' + a.activityType + " for " + a.activityDuration + " days. " + a.activityDescription + '</p>';
+				});
+			} else {
+				activityString += "<p>No current activities (lazy!!)</p>";
+			}
+
+
+
+
+
+			ret += '<div class="row well">';
+			ret += '<div class="col-xs-3">';
+			ret += '<strong>' + npc.name + '</strong><br />';
+			ret += npc.valueOf();
+			ret += '</div> <!-- /col -->';
+
+			ret += '<div class="col-xs-9">';
+
+			ret += activityString;
+			ret += '</div> <!-- /col -->';
+			ret += '</div> <!-- /row -->';
+
+
+
+		});
+
+
+		$("#npcs").append(ret);
+
+	});
+
+
+
+
+
+
+
+}); // document.ready
