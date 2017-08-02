@@ -333,7 +333,7 @@ $(document).ready(function () {
 			activityType: activityType
 		};
 		$.getJSON('./getdbdata.php', data, function(data){});
-		//location.reload(true);
+		location.reload(true);
 
 	});
 	
