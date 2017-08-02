@@ -13,17 +13,17 @@ SELECT *
  WHERE npcID IN (2)
  */
 
-$user = 'root';
-$password = 'root';
+$dbuser = (getenv('OPENSHIFT_MYSQL_DB_USERNAME') ? getenv('OPENSHIFT_MYSQL_DB_USERNAME') : "phptojs_dev");
+$dbpwd = (getenv('OPENSHIFT_MYSQL_DB_PASSWORD') ? getenv('OPENSHIFT_MYSQL_DB_PASSWORD') : "mylocaldev");
 $db = 'npctracker';
-$host = '127.0.0.1';
+$dbhost = (getenv('OPENSHIFT_MYSQL_DB_HOST') ? getenv('OPENSHIFT_MYSQL_DB_HOST') : "localhost");
 $port = 8889;
 $socket = 'localhost:/Applications/MAMP/tmp/mysql/mysql.sock';
 
 $con = mysqli_connect(
-   $host,
-   $user, 
-   $password, 
+   $dbhost,
+   $dbuser,
+   $dbpwd,
    $db,
    $port,
    $socket
