@@ -19,7 +19,7 @@
     <!-- Custom RPGAid CSS -->
     <link rel="stylesheet" href="css/rpgaid.css">
 
-    <title>Quick Generate - RPGAid</title>
+    <title>Quick Generate - RPGAid, yo</title>
   </head>
   <body>
     <div class="container-fluid">
