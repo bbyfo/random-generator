@@ -7,14 +7,23 @@ strong.activity-type{padding:3px;margin:3px 3px 3px 0px;border-radius: 3px;}
 .progress-bar{min-width: 7em;}
 .progress-bar-inactive{background-color: #767676; color:#fff;}
 .time-control{text-align: center;font-size: 2em;}
+
 #decrementDay,
-#incrementDay{cursor:pointer;}
+#incrementDay,
+.activity-delete{
+  cursor:pointer;
+}
 
 
 
 .activity-toggler span,
 .activity-sorter,
 .activity-add-new{color: #337AB2; cursor:pointer;}
+
+
+.activity-delete{
+	color: #d9534f;
+}
 
 /* Keep some divs inline */
 .activity-sorter,
