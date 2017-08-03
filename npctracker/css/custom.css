@@ -3,20 +3,26 @@
 
 #npcs .row{border-bottom: 1px solid #7A7A7A;}
 #npcs {opacity: 0;}
-strong.activity-type{display: inline-block; padding:3px;margin:3px 3px 3px 0px;border-radius: 3px;}
+strong.activity-type{padding:3px;margin:3px 3px 3px 0px;border-radius: 3px;}
 .progress-bar{min-width: 7em;}
 .progress-bar-inactive{background-color: #767676; color:#fff;}
 .time-control{text-align: center;font-size: 2em;}
 #decrementDay,
 #incrementDay{cursor:pointer;}
 
-.activity-toggler{display: inline-block;}
+
 
 .activity-toggler span,
 .activity-sorter,
 .activity-add-new{color: #337AB2; cursor:pointer;}
 
-.activity-sorter{display: inline-block;}
+/* Keep some divs inline */
+.activity-sorter,
+.activity-delete,
+.activity-description,
+.activity-toggler,
+strong.activity-type{
+	display: inline-block;
+}
 
 
-.activity-description{display: inline-block;}
