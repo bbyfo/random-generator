@@ -208,7 +208,7 @@ line-height: 1.4;
 
   <h1>RPGAid (super alpha early pre-release)</h1>
   <dl>
-    <dt><a href="quickgen.php">Quick Gen</a></dt>
+    <dt><a href="/quickgen/quickgen.php">Quick Gen</a></dt>
     <dd>Quickly generate random elements</dd>
     <dt><a href="sharpshooter.html">Sharpshooter evaluation</a></dt>
     <dd>Determine if the Sharpshooter feat is worth it (spoiler: it pretty much is)</dd>
@@ -216,6 +216,6 @@ line-height: 1.4;
     <dd>OpenShift login page.</dd>
   </dl>
 
-  <p>See the <a href="index2.php">original OpenShift index page</a>.</p>
+  <p>See the <a href="index_openshift_orig.php">original OpenShift index page</a>.</p>
 </body>
 </html>
