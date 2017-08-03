@@ -304,6 +304,13 @@ $(document).ready(function () {
 		location.reload(true);
 	});
 
+	// Delete an activity
+	$("#npcs").on("click", ".activity-delete", function(data){
+		console.log("delete activity");
+		console.log("data", data);
+		console.log("this", $(this));
+	});
+
 	// Add a new activity form
 	$("#npcs").on("click", ".activity-add-new", function(data){
 		console.log("add a new activity!!!");
