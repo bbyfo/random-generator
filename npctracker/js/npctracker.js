@@ -307,8 +307,7 @@ $(document).ready(function () {
 	// Delete an activity
 	$("#npcs").on("click", ".activity-delete", function(data){
 		console.log("delete activity");
-		console.log("data", data);
-		console.log("this", $(this));
+		console.log("activityid: ", $(this).data('activityid'));
 	});
 
 	// Add a new activity form
