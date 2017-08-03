@@ -213,7 +213,7 @@ $(document).ready(function () {
 					activity += '<div class="activity-description">' + a.activityDescription + '</div>';
 					activity += ' <div class="activity-toggler" id="' + activityTogglerID + '"><span>(' + activityTogglerText + ')</span></div>';
 					activity += ' <div class="activity-sorter"><span class="activity-sort-up glyphicon glyphicon-hand-up"></span> <span class="activity-sort-down glyphicon glyphicon-hand-down"></span></div>';
-
+					activity += ' <div class="activity-delete"><span class="activity-delete-btn glyphicon glyphicon-delete"></span>';
 					activity += '<div class="progress"><div class="progress-bar progress-bar-' + progressType + '" style="width:' + progressPct + ';">';
 					activity += "Day " + a.activityProgress + " of " + a.activityDuration;
 					activity += "</div></div>";

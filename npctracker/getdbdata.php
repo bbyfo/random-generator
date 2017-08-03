@@ -76,6 +76,11 @@ switch($qp){
 		$sql = "INSERT INTO `activities` (`npcID`, `activityType`, `activityDuration`, `activityProgress`, `activityDescription`, `activityOrder`, `activityActive`) VALUES ($npcid, '$activityType', '5', '0', '$activityDesc', '5', '1')";
 		
 		break;
+	case "activityDelete":
+		$sql = 'DELETE FROM `npctracker`.`activities` 
+		        WHERE `activities`.`activityID` = ' . $_GET["actid"];
+
+		break;
 	default:
 		$sql = ' SELECT n.*,a.*
           		   FROM npcs AS n
