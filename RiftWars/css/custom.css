@@ -1,0 +1,69 @@
+/* Scss Document */
+/* line 2, ../scss/custom.scss */
+.row {
+  margin-bottom: 30px;
+}
+
+/* line 4, ../scss/custom.scss */
+.talent-container.placeholder .talent-title,
+.talent-container.placeholder .talent-cost {
+  background-color: grey;
+}
+
+/* line 9, ../scss/custom.scss */
+.talent {
+  background-color: white;
+  border: 2px solid black;
+}
+/* line 12, ../scss/custom.scss */
+.talent .talent-title, .talent .talent-desc, .talent .talent-cost {
+  padding: 5px;
+}
+/* line 15, ../scss/custom.scss */
+.talent .talent-title, .talent .talent-cost {
+  background-color: #820002;
+  color: white;
+}
+/* line 19, ../scss/custom.scss */
+.talent .talent-desc {
+  background-color: white;
+  color: black;
+  border-bottom: 1px solid #616161;
+}
+/* line 24, ../scss/custom.scss */
+.talent .talent-cost {
+  width: 45%;
+  text-align: right;
+}
+
+/* Edge of the Empire Font Icons */
+@font-face {
+  font-family: 'eote_symbolregular';
+  src: url("../fonts/eote/eote_symbol_regular_v1-webfont.woff2") format("woff2"), url("../fonts/eote/eote_symbol_regular_v1-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+/* line 43, ../scss/custom.scss */
+[data-icon]:before {
+  font-family: 'eote_symbolregular', Arial, sans-serif;
+  content: attr(data-icon);
+}
+
+/* line 48, ../scss/custom.scss */
+.icon-alone {
+  display: inline-block;
+  /* Chrome 19 was weird with clickability without this */
+}
+
+/* jQuery UI Draggalbe and Droppable */
+/* line 54, ../scss/custom.scss */
+.ui-droppable-hover .talent {
+  border: 2px dashed black;
+}
+
+/* line 60, ../scss/custom.scss */
+.ui-draggable-dragging.talent-container * {
+  opacity: 0.8;
+}
+
+/* End jQuery UI Draggalbe and Droppable */

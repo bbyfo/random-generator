@@ -210,6 +210,8 @@ line-height: 1.4;
   <dl>
     <dt><a href="/quickgen/quickgen.php">Quick Gen</a></dt>
     <dd>Quickly generate random elements</dd>
+    <dt><a href="/RiftWars/">RiftWars Specialization Builder</a></dt>
+    <dd>Will be awesome...when it works.</dd>
     <dt><a href="sharpshooter.html">Sharpshooter evaluation</a></dt>
     <dd>Determine if the Sharpshooter feat is worth it (spoiler: it pretty much is)</dd>
     <dt><a href="https://openshift.redhat.com/app/login?then=%2Fapp%2Fconsole%2Fapplications">Sign in to OpenShift</a></dt>

@@ -1,0 +1,67 @@
+/* Scss Document */
+.row{margin-bottom: 30px;}
+.talent-container.placeholder{
+.talent-title,
+.talent-cost{
+		background-color: grey;
+	}
+}
+.talent {
+	background-color:white;
+	border: 2px solid black;
+	.talent-title, .talent-desc, .talent-cost{
+		padding: 5px;
+	}
+	.talent-title,.talent-cost{ 
+		background-color:#820002;
+		color: white;
+	}
+	.talent-desc{
+		background-color:white;
+		color: black;
+		border-bottom: 1px solid #616161;
+	}
+	.talent-cost{
+    width: 45%;
+    text-align: right;
+		
+	}
+} 
+
+
+/* Edge of the Empire Font Icons */
+@font-face {
+    font-family: 'eote_symbolregular';
+    src: url('../fonts/eote/eote_symbol_regular_v1-webfont.woff2') format('woff2'),
+         url('../fonts/eote/eote_symbol_regular_v1-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+[data-icon]:before {
+	font-family: 'eote_symbolregular', Arial, sans-serif;
+	content: attr(data-icon);
+}
+
+.icon-alone {
+  display: inline-block; /* Chrome 19 was weird with clickability without this */
+}
+
+/* jQuery UI Draggalbe and Droppable */
+.ui-droppable-hover{
+	.talent{
+	border: 2px dashed black;
+	}
+}
+.ui-draggable-dragging{
+	&.talent-container{
+	*{
+		//background-color: green;
+		opacity: 0.8;
+	}
+}
+	}
+
+/* End jQuery UI Draggalbe and Droppable */

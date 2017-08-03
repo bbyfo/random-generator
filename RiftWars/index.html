@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Specializations - RiftWars</title>
+
+<!-- Bootstrap -->
+<link href="css/bootstrap.css" rel="stylesheet">
+<!-- jQuery UI -->
+<link href="js/jquery-ui/jquery-ui.css" rel="stylesheet">
+<!-- Custom -->
+<link href="css/custom.css" rel="stylesheet">
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<p>Well, I got the Dreamweaver "site" set up to work with Compass scss processing.  And the basic markup in place.</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2" id="talent-manager">
+      <h1 class="text-center">Manage Talents</h1>
+      <p>This is where we will have: </p>
+      <ul>
+      	<li>a quick filter for existing talents</li>
+      	<li>a tiny form for creating a new talent</li>
+      	<li>a display of one or more talents for dragging over to the Specialization side.</li>
+      	<li></li>
+      </ul>
+      
+		<div class="talent-new"><div data-title="This is my title.">Hey! Drag me!</div></div>
+     
+		<div class="talent-new"><div class="talent-container placeholder"><div class="talent"><div class="talent-title">Dodge</div><div class="talent-desc">When hit, suffer  <span class="icon-alone" data-icon="&#115;"></span> <span class="icon-alone" data-icon="&#115;"></span> <span class="icon-alone" data-icon="&#115;"></span> to reduce damage by <span class="icon-alone" data-icon="&#120;"></span></div><div class="talent-cost">COST ??</div></div></div></div>
+      
+    </div>
+    <div class="col-md-10" id="specialization-manager">
+      <h1 class="text-center">Manage specializations</h1>
+      <p>Here is a specilization. It'd be cool to have a small management section here to create/edit specializations.</p>
+      <div class="container-fluid">
+        <div class="row" data-row-cost="5">
+			<div class="col-md-3" id="tal-1"><div class="talent-container placeholder"><div class="talent"><div class="talent-purchased"></div><div class="talent-title">TALENT NAME</div><div class="talent-desc">Talent Description <span class="icon-alone" data-icon="&#115;"></span> to get <span class="icon-alone" data-icon="&#120;"></span></div><div class="talent-cost">COST XX</div></div></div></div>
+          <div class="col-md-3" id="tal-2"><div class="talent-container placeholder"><div class="talent"><div class="talent-title">TALENT NAME</div><div class="talent-desc">Talent Description</div><div class="talent-cost">COST XX</div></div></div></div>
+          <div class="col-md-3" id="tal-3"><div class="talent-container placeholder"><div class="talent"><div class="talent-title">TALENT NAME</div><div class="talent-desc">Talent Description</div><div class="talent-cost">COST XX</div></div></div></div>
+          <div class="col-md-3" id="tal-4"><div class="talent-container placeholder"><div class="talent"><div class="talent-title">TALENT NAME</div><div class="talent-desc">Talent Description</div><div class="talent-cost">COST XX</div></div></div></div>
+        </div>
+        <div class="row" data-row-cost="10">
+          <div class="col-md-3" id="tal-5"><div class="talent-container placeholder"><div class="talent"><div class="talent-title">TALENT NAME</div><div class="talent-desc">Talent Description</div><div class="talent-cost">COST XX</div></div></div></div>
+          <div class="col-md-3" id="tal-6"><div class="talent-container placeholder"><div class="talent"><div class="talent-title">TALENT NAME</div><div class="talent-desc">Talent Description</div><div class="talent-cost">COST XX</div></div></div></div>
+          <div class="col-md-3" id="tal-7"><div class="talent-container placeholder"><div class="talent"><div class="talent-title">TALENT NAME</div><div class="talent-desc">Talent Description</div><div class="talent-cost">COST XX</div></div></div></div>
+          <div class="col-md-3" id="tal-8"><div class="talent-container placeholder"><div class="talent"><div class="talent-title">TALENT NAME</div><div class="talent-desc">Talent Description</div><div class="talent-cost">COST XX</div></div></div></div>
+        </div>
+
+        <div class="row" data-row-cost="15">
+          <div class="col-md-3" id="tal-9"><div class="talent-container placeholder"><div class="talent"><div class="talent-title">TALENT NAME</div><div class="talent-desc">Talent Description</div><div class="talent-cost">COST XX</div></div></div></div>
+          <div class="col-md-3" id="tal-10"><div class="talent-container placeholder"><div class="talent"><div class="talent-title">TALENT NAME</div><div class="talent-desc">Talent Description</div><div class="talent-cost">COST XX</div></div></div></div>
+          <div class="col-md-3" id="tal-11"><div class="talent-container placeholder"><div class="talent"><div class="talent-title">TALENT NAME</div><div class="talent-desc">Talent Description</div><div class="talent-cost">COST XX</div></div></div></div>
+          <div class="col-md-3" id="tal-12"><div class="talent-container placeholder"><div class="talent"><div class="talent-title">TALENT NAME</div><div class="talent-desc">Talent Description</div><div class="talent-cost">COST XX</div></div></div></div>
+        </div>
+        <div class="row" data-row-cost="20">
+          <div class="col-md-3" id="tal-13"><div class="talent-container placeholder"><div class="talent"><div class="talent-title">TALENT NAME</div><div class="talent-desc">Talent Description</div><div class="talent-cost">COST XX</div></div></div></div>
+          <div class="col-md-3" id="tal-14"><div class="talent-container placeholder"><div class="talent"><div class="talent-title">TALENT NAME</div><div class="talent-desc">Talent Description</div><div class="talent-cost">COST XX</div></div></div></div>
+          <div class="col-md-3" id="tal-15"><div class="talent-container placeholder"><div class="talent"><div class="talent-title">TALENT NAME</div><div class="talent-desc">Talent Description</div><div class="talent-cost">COST XX</div></div></div></div>
+          <div class="col-md-3" id="tal-16"><div class="talent-container placeholder"><div class="talent"><div class="talent-title">TALENT NAME</div><div class="talent-desc">Talent Description</div><div class="talent-cost">COST XX</div></div></div></div>
+        </div>
+                <div class="row" data-row-cost="25">
+          <div class="col-md-3" id="tal-17"><div class="talent-container placeholder"><div class="talent"><div class="talent-title">TALENT NAME</div><div class="talent-desc">Talent Description</div><div class="talent-cost">COST XX</div></div></div></div>
+          <div class="col-md-3" id="tal-18"><div class="talent-container placeholder"><div class="talent"><div class="talent-title">TALENT NAME</div><div class="talent-desc">Talent Description</div><div class="talent-cost">COST XX</div></div></div></div>
+          <div class="col-md-3" id="tal-19"><div class="talent-container placeholder"><div class="talent"><div class="talent-title">TALENT NAME</div><div class="talent-desc">Talent Description</div><div class="talent-cost">COST XX</div></div></div></div>
+          <div class="col-md-3" id="tal-20"><div class="talent-container placeholder"><div class="talent"><div class="talent-title">TALENT NAME</div><div class="talent-desc">Talent Description</div><div class="talent-cost">COST XX</div></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+<script src="js/jquery-1.11.3.min.js"></script> 
+<!-- jQuery UI -->
+<script src="js/jquery-ui/jquery-ui.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<script src="js/bootstrap.js"></script> 
+<script src="js/script.js"></script>
+</body>
+</html>
