@@ -36,7 +36,7 @@
         <button id="addtemplatebutton">Add template</button>
       </div>
       <p>
-        <a href="quickgen.php">Generate data page</a>
+        <a href="index.php">Generate data page</a>
       </p>
     </div>
 
