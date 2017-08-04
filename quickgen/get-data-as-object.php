@@ -11,12 +11,31 @@ $dbpwd = (getenv('OPENSHIFT_MYSQL_DB_PASSWORD') ? getenv('OPENSHIFT_MYSQL_DB_PAS
 
 $mysqli = new mysqli($dbhost, $dbuser, $dbpwd, "rpgaid");
 
+// DUMMY DATA 
+//$campaign_params = array(0, 'SELECT * FROM campaigns;');
 
-// Get all the metadata.  This is used to assemble the final gen_data variable in the JS, which is used by the
-// generator.js file.
+$campaign_params = array((isset($_GET['campaign']) ? $_GET['campaign'] : 0));
+
+//var_dump($campaign_params);
+
+$campaign_params_sanatized = array();
+foreach($campaign_params as $p) {
+  if(is_numeric($p)){
+    $campaign_params_sanatized[] = $p;
+  }
+}
+
+//var_dump($campaign_params_sanatized);
+
+$cids_for_in_clause = implode(',', $campaign_params_sanatized);
+
+//var_dump($cids_for_in_clause);
+
+// Get the metadata.  This is used to assemble the final gen_data variable in the JS, which is used by the generator.js file.
 $datakeys_sql = "SELECT DISTINCT
   tid,datakey,title
-  FROM templates
+   FROM templates
+  WHERE cid IN (".$cids_for_in_clause.")
   ORDER BY title";
 
 $datakeys_results = $mysqli->query($datakeys_sql);

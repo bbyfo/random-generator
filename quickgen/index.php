@@ -59,8 +59,9 @@
 
         // Get all the data and set gen_data to the proper format.
         // getData() is located in /js/getdata.js
+        // A campaign of '0' means "all" templates will be retrieved.
         getData({
-          dataset:'all'
+          campaign:'1'
         });
         // gen_data will not have the data yet.  I know, I know, it bites.  getOverIt().
 

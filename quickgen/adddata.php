@@ -55,7 +55,7 @@
       // Get all the data and set gen_data to the proper format
       // getData is in the getdata.js file
       getData({
-        dataset:'all'
+        campaign:'0'
       });
       // getData calls workWithGenData();
       // gen_data will not have the data yet.  I know, I know, it bites.  getOverIt() #suckItUpButterCup.

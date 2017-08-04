@@ -2,49 +2,30 @@
 
 $output = array();
 // Connect to database server
-$db = mysql_connect("localhost", "root", "quickstart");
-if (!$db) {
-  die("Database connection failed miserably: " . mysql_error());
-}
-// Select the database
-$db_select = mysql_select_db("rpgaid", $db);
-if (!$db_select) {
-  die("Database selection also failed miserably: " . mysql_error());
-}
+$dbhost = (getenv('OPENSHIFT_MYSQL_DB_HOST') ? getenv('OPENSHIFT_MYSQL_DB_HOST') : "localhost");
+$dbuser = (getenv('OPENSHIFT_MYSQL_DB_USERNAME') ? getenv('OPENSHIFT_MYSQL_DB_USERNAME') : "root");
+$dbpwd = (getenv('OPENSHIFT_MYSQL_DB_PASSWORD') ? getenv('OPENSHIFT_MYSQL_DB_PASSWORD') : "root");
+
+$mysqli = new mysqli($dbhost, $dbuser, $dbpwd, "rpgaid");
 
 //Step3
 $amt = (isset($_GET['amt']) ? $_GET['amt'] : 100);
-$dataset = (isset($_GET['dataset']) ? $_GET['dataset'] : 'all');
+$campaign = (isset($_GET['campaign']) ? $_GET['campaign'] : '0');
 
-switch ($dataset) {
+switch ($campaign) {
 
-  case 'all':
-    $result = mysql_query("SELECT datakey, string, `range` FROM gen_data", $db);
+  case '0':
+    $result = mysql_query("SELECT datakey, string, `range` FROM gen_data", $dbhost);
     if (!$result) {
       die("Database query failed: " . mysql_error());
     }
     while ($row = mysql_fetch_array($result)) {
-/*
-      $output[$row['datakey']][] = array(
-          'id' => $row['id'],
-          'datakey' => $row['datakey'],
-          'title' => $row['title'],
-          'string' => $row['string']
-      );
- *
- */
       // Setting the value as an array works, but not for custom ranges.
       $output[$row['datakey']][] = $row['string'];
-
-
-     
-
     }
     break;
 };
 
-
-//Step4
 //print "<pre>";
 //print_r($output);
 //print "</pre>";
