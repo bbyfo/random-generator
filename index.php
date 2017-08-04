@@ -208,7 +208,7 @@ line-height: 1.4;
 
   <h1>RPGAid (super alpha early pre-release)</h1>
   <dl>
-    <dt><a href="/quickgen/quickgen.php">Quick Gen</a></dt>
+    <dt><a href="/quickgen/">Quick Gen</a></dt>
     <dd>Quickly generate random elements</dd>
     <dt><a href="/RiftWars/">RiftWars Specialization Builder</a></dt>
     <dd>Will be awesome...when it works.</dd>
