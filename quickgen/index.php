@@ -61,6 +61,9 @@
             if (in_array($cid, $chosen_campaigns)){
               $coChecked = 'checked';
               $coCheckedClass = "co-checked";
+            } else if(is_null($chosen_campaigns) && $cid == 2){
+                            $coChecked = 'checked';
+              $coCheckedClass = "co-checked";
             }
             echo "[<span class='$coCheckedClass'> <input type='checkbox' name='campaign[]' $coChecked value='$cid' class='campaign-checkbox' /> $campaign_name</span>] ";
           }
