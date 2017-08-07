@@ -36,21 +36,37 @@
                      ORDER BY campaign_name";
       // Execute the SQL query
       $campaigns_results = $mysqli->query($campaigns_sql);
+
+      // Determine if any checkboxes should be pre-checked
+      $chosen_campaigns = $_GET['campaign'];
+       /*
+      echo "<pre>";
+      var_dump($chosen_campaigns);
+      echo "</pre>";
+      // */
       ?>
       <!-- PHP Code End -->
       
-      <div class="row campaign-chooser">
+      <div class="row" id="campaign-chooser">
         <strong>Campaigns to use</strong>
         <?php
           // Use the query results
+          
           while ($row = $campaigns_results->fetch_array(MYSQLI_ASSOC)) {
+            $coChecked = "";
+            $coCheckedClass = "";
             //var_dump($row);
             $cid = $row['cid'];
             $campaign_name = $row['campaign_name'];
-            echo "[ <input type='checkbox' name='campaign' value='$cid' /> $campaign_name  ] ";
+            if (in_array($cid, $chosen_campaigns)){
+              $coChecked = 'checked';
+              $coCheckedClass = "co-checked";
+            }
+            echo "[<span class='$coCheckedClass'> <input type='checkbox' name='campaign[]' $coChecked value='$cid' class='campaign-checkbox' /> $campaign_name</span>] ";
           }
         ?>
         <button class="btn btn-secondary" type="button" id="set-campaigns">Set Campaigns</button>
+        <span id="campaign-select-options">Select <span class="faux-link" data-co="all">all</span> / <span class="faux-link" data-co="none">none</span> </span>
       </div>
       <div class="row">
         <button id="generate" class="btn btn-primary">Generate</button> <input type="text" size="5" id="numgen" value="3" /> items of type
@@ -106,38 +122,41 @@
           //console.log("i: ", post_split[i]);
           campaign.push(post_split[i].substr(post_split[i].indexOf("=")+1));
         }
-        //console.log("campaign (pre): ", campaign);
+        //console.log("campaign (after splitting): ", campaign);
         
         /****** Getting query parameters END *******/
         
         //console.log("campaign.length: ", campaign.length);
 
         
-        // Set default
+        // Set default campaign if none have been chosen.
         if(campaign.length == 1 && campaign[0] == ""){
           campaign = ["2"];
         } 
-        console.log("campaign (post): ", campaign);
+        //console.log("campaign (just before using to get data): ", campaign);
         getData({
           campaign: campaign
         });
-        // gen_data will not have the data yet.  I know, I know, it bites.  getOverIt().
+        // gen_data will not have the data yet.  
+        // I know, I know, it bites.  getOverIt().
 
 
 
         // Receive the data and do something with it.
         function workWithGenData(gen_data){
           //console.log("gen_data", gen_data);
-          /********************************************************************************************************
-           * We want to get the formHelper out of the gen_data variable because it could cause problems later on
-           * if we try to loop over the properties.
-           ********************************************************************************************************/
+          
+          /*********************************************************************
+           * We want to get the formHelper out of the gen_data variable because
+           * it could cause problems later on if we try to loop over the
+           * properties.
+           ********************************************************************/
           var formHelper = gen_data.formHelper;
           delete gen_data.formHelper;
 
-          /********************************************************************************************************
+          /*********************************************************************
            * Set up our Variables
-           ********************************************************************************************************/
+           ********************************************************************/
           var typeGenField = $("#typegen");
           var numGenField = $("#numgen");
           var generateButton = $("#generate");
@@ -148,16 +167,16 @@
           var regenButton = $("#regen");
           var setCampaigns = $("#set-campaigns")
 
-          /********************************************************************************************************
+          /********************************************************************
            * Set up our Event Handlers
-           ********************************************************************************************************/
+           *******************************************************************/
 
           // Set Campaigns
           // This inspects the checkboxes and creates a query string based
           // on the checked boxes.
           setCampaigns.click(function(){
             var reloadTo = "./index.php?";
-            var campaignQueryString = $('input[name="campaign"]:checked').serialize();
+            var campaignQueryString = $('input[name="campaign[]"]:checked').serialize();
             window.location.href = reloadTo + campaignQueryString;
           });
 
@@ -196,11 +215,29 @@
             generateButton.trigger('click');
           });
 
-          /********************************************************************************************************
+          /********************************************************************
            * Set up our UI
            *  - Populating form elements with dynamic data
            *  - Creating form areas
-           ********************************************************************************************************/
+           *******************************************************************/
+
+          // Select All/None campaigns
+          $("#campaign-select-options .faux-link").click(function(){
+            // co = campaign option
+            var co = $(this).data("co");
+            var coBoxes = $('input[name="campaign[]"]');
+            console.log("co: ", co);
+            console.log("coBoxes: ", coBoxes);
+            for (i = 0; i < coBoxes.length; i++){
+              console.log("coBox: ", coBoxes[i]);
+              if (co == "all"){
+                $(coBoxes[i]).prop('checked', true);
+              }else if (co == "none"){
+                $(coBoxes[i]).prop('checked', false);
+              }
+            }
+
+          });
 
           // Apply the options to the "items of type ____" field.
           $.each(formHelper, function(datakey, string){

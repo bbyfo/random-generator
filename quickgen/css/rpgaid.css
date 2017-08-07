@@ -140,7 +140,18 @@ body.sharpshooter{
   width:40px;
 }
 
-.row.campaign-chooser h2,
-.row.campaign-chooser p{
+#campaign-chooser h2,
+#campaign-chooser p{
   display: inline-block;
+}
+#campaign-chooser .co-checked{
+  background-color:rgba(51,122,183,0.5);
+  color: white;
+}
+
+.faux-link{
+  color: blue;
+}
+.faux-link:hover{
+  cursor: pointer;
 }
