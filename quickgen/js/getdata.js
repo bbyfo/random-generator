@@ -5,7 +5,7 @@
 
 // This script retrieves the data via ajax/json from the php file
 function getData(params) {
-console.log("params in getdata.js", params);
+	//console.log("params in getdata.js", params);
   $.getJSON('get-data-as-object.php', params)
   .done(function(data) {
 

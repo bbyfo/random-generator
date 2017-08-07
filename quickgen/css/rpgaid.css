@@ -140,3 +140,7 @@ body.sharpshooter{
   width:40px;
 }
 
+.row.campaign-chooser h2,
+.row.campaign-chooser p{
+  display: inline-block;
+}

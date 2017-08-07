@@ -23,6 +23,35 @@
   </head>
   <body>
     <div class="container-fluid">
+      <!-- PHP Code Begin -->
+      <?php
+      // Connect to database server
+      $dbhost = (getenv('OPENSHIFT_MYSQL_DB_HOST') ? getenv('OPENSHIFT_MYSQL_DB_HOST') : "localhost");
+      $dbuser = (getenv('OPENSHIFT_MYSQL_DB_USERNAME') ? getenv('OPENSHIFT_MYSQL_DB_USERNAME') : "root");
+      $dbpwd = (getenv('OPENSHIFT_MYSQL_DB_PASSWORD') ? getenv('OPENSHIFT_MYSQL_DB_PASSWORD') : "root");
+      $mysqli = new mysqli($dbhost, $dbuser, $dbpwd, "rpgaid");
+      // Generate the SQL
+      $campaigns_sql = "SELECT DISTINCT cid, campaign_name, campaign_desc
+                         FROM campaigns
+                     ORDER BY campaign_name";
+      // Execute the SQL query
+      $campaigns_results = $mysqli->query($campaigns_sql);
+      ?>
+      <!-- PHP Code End -->
+      
+      <div class="row campaign-chooser">
+        <strong>Campaigns to use</strong>
+        <?php
+          // Use the query results
+          while ($row = $campaigns_results->fetch_array(MYSQLI_ASSOC)) {
+            //var_dump($row);
+            $cid = $row['cid'];
+            $campaign_name = $row['campaign_name'];
+            echo "[ <input type='checkbox' name='campaign' value='$cid' /> $campaign_name  ] ";
+          }
+        ?>
+        <button class="btn btn-secondary" type="button" id="set-campaigns">Set Campaigns</button>
+      </div>
       <div class="row">
         <button id="generate" class="btn btn-primary">Generate</button> <input type="text" size="5" id="numgen" value="3" /> items of type
         <select id="typegen">
@@ -59,9 +88,38 @@
 
         // Get all the data and set gen_data to the proper format.
         // getData() is located in /js/getdata.js
-        // A campaign of '0' means "all" templates will be retrieved.
+        // A campaign of '2' means "all" templates will be retrieved.
+        // We start at 2 instead of 0 or 1 because we use checkboxes
+        // in the gui and 0 = unchecked and 1 = checked...which screws
+        // with things.  Why fix code when we can modify data to suit
+        // our needs?  *sigh*
+
+        /****** Getting query parameters BEGIN *******/
+        
+        var qs = window.location.search;
+        //console.log("qs: ", qs);
+        var post_split = qs.split("&");
+        //console.log("post split: ", post_split);
+        var campaign = [];
+        var daLen = post_split.length;
+        for (var i = 0; i < daLen; i++) {
+          //console.log("i: ", post_split[i]);
+          campaign.push(post_split[i].substr(post_split[i].indexOf("=")+1));
+        }
+        //console.log("campaign (pre): ", campaign);
+        
+        /****** Getting query parameters END *******/
+        
+        //console.log("campaign.length: ", campaign.length);
+
+        
+        // Set default
+        if(campaign.length == 1 && campaign[0] == ""){
+          campaign = ["2"];
+        } 
+        console.log("campaign (post): ", campaign);
         getData({
-          campaign:'1'
+          campaign: campaign
         });
         // gen_data will not have the data yet.  I know, I know, it bites.  getOverIt().
 
@@ -88,10 +146,20 @@
           var presetExamples = $("#preset-examples");
           var clearButton = $("#genclear");
           var regenButton = $("#regen");
+          var setCampaigns = $("#set-campaigns")
 
           /********************************************************************************************************
            * Set up our Event Handlers
            ********************************************************************************************************/
+
+          // Set Campaigns
+          // This inspects the checkboxes and creates a query string based
+          // on the checked boxes.
+          setCampaigns.click(function(){
+            var reloadTo = "./index.php?";
+            var campaignQueryString = $('input[name="campaign"]:checked').serialize();
+            window.location.href = reloadTo + campaignQueryString;
+          });
 
           // Item of type select list
           typeGenField.change(function(){
@@ -106,6 +174,7 @@
             
             var presetsGenValue = (presetInput.val() ? presetInput.val() : {});
 
+            // Ugh, really James?  Get rid of this stuff
             presetsGenValue.pc = ["Andrelion", "Ossian", "Akiva", "Hash", "Isilme "];
             //console.log("presetsGenValue", presetsGenValue);
 

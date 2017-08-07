@@ -14,10 +14,13 @@ $mysqli = new mysqli($dbhost, $dbuser, $dbpwd, "rpgaid");
 // DUMMY DATA 
 //$campaign_params = array(0, 'SELECT * FROM campaigns;');
 
-$campaign_params = array((isset($_GET['campaign']) ? $_GET['campaign'] : 0));
+$campaign_params = (isset($_GET['campaign']) ? $_GET['campaign'] : 0);
 
-//var_dump($campaign_params);
-
+/*
+echo "<pre>";
+var_dump($campaign_params);
+echo "</pre>";
+*/
 $campaign_params_sanatized = array();
 foreach($campaign_params as $p) {
   if(is_numeric($p)){
@@ -37,10 +40,9 @@ $datakeys_sql = "SELECT DISTINCT
    FROM templates
   WHERE cid IN (".$cids_for_in_clause.")
   ORDER BY title";
-
+// Execute the query
 $datakeys_results = $mysqli->query($datakeys_sql);
-
-
+// Use the query results to build the data
 while ($row = $datakeys_results->fetch_array(MYSQLI_ASSOC)) {
   $stringholder = new stdClass();
   /*
