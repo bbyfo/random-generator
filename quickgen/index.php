@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript" src="js/underscore-min.js"></script>
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+  <script type="text/javascript" src="js/underscore-min.js"></script>
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 
-    <!-- Custom RPGAid CSS -->
-    <link rel="stylesheet" href="css/rpgaid.css">
+  <!-- Custom RPGAid CSS -->
+  <link rel="stylesheet" href="css/rpgaid.css">
 
-    <title>Quick Generate - RPGAid</title>
-  </head>
-  <body>
-    <div class="container-fluid">
-      <!-- PHP Code Begin -->
-      <?php
+  <title>Quick Generate - RPGAid</title>
+</head>
+<body>
+  <div class="container-fluid">
+    <!-- PHP Code Begin -->
+    <?php
       // Connect to database server
-      $dbhost = (getenv('OPENSHIFT_MYSQL_DB_HOST') ? getenv('OPENSHIFT_MYSQL_DB_HOST') : "localhost");
-      $dbuser = (getenv('OPENSHIFT_MYSQL_DB_USERNAME') ? getenv('OPENSHIFT_MYSQL_DB_USERNAME') : "root");
-      $dbpwd = (getenv('OPENSHIFT_MYSQL_DB_PASSWORD') ? getenv('OPENSHIFT_MYSQL_DB_PASSWORD') : "root");
-      $mysqli = new mysqli($dbhost, $dbuser, $dbpwd, "rpgaid");
+    $dbhost = (getenv('OPENSHIFT_MYSQL_DB_HOST') ? getenv('OPENSHIFT_MYSQL_DB_HOST') : "localhost");
+    $dbuser = (getenv('OPENSHIFT_MYSQL_DB_USERNAME') ? getenv('OPENSHIFT_MYSQL_DB_USERNAME') : "root");
+    $dbpwd = (getenv('OPENSHIFT_MYSQL_DB_PASSWORD') ? getenv('OPENSHIFT_MYSQL_DB_PASSWORD') : "root");
+    $mysqli = new mysqli($dbhost, $dbuser, $dbpwd, "rpgaid");
       // Generate the SQL
-      $campaigns_sql = "SELECT DISTINCT cid, campaign_name, campaign_desc
-                         FROM campaigns
-                     ORDER BY campaign_name";
+    $campaigns_sql = "SELECT DISTINCT cid, campaign_name, campaign_desc
+    FROM campaigns
+    ORDER BY campaign_name";
       // Execute the SQL query
-      $campaigns_results = $mysqli->query($campaigns_sql);
+    $campaigns_results = $mysqli->query($campaigns_sql);
 
       // Determine if any checkboxes should be pre-checked
-      $chosen_campaigns = $_GET['campaign'];
+    $chosen_campaigns = $_GET['campaign'];
        /*
       echo "<pre>";
       var_dump($chosen_campaigns);
@@ -51,22 +51,22 @@
         <strong>Campaigns to use</strong>
         <?php
           // Use the query results
-          
-          while ($row = $campaigns_results->fetch_array(MYSQLI_ASSOC)) {
-            $coChecked = "";
-            $coCheckedClass = "";
+        
+        while ($row = $campaigns_results->fetch_array(MYSQLI_ASSOC)) {
+          $coChecked = "";
+          $coCheckedClass = "";
             //var_dump($row);
-            $cid = $row['cid'];
-            $campaign_name = $row['campaign_name'];
-            if (in_array($cid, $chosen_campaigns)){
-              $coChecked = 'checked';
-              $coCheckedClass = "co-checked";
-            } else if(is_null($chosen_campaigns) && $cid == 2){
-                            $coChecked = 'checked';
-              $coCheckedClass = "co-checked";
-            }
-            echo "[<span class='$coCheckedClass'> <input type='checkbox' name='campaign[]' $coChecked value='$cid' class='campaign-checkbox' /> $campaign_name</span>] ";
+          $cid = $row['cid'];
+          $campaign_name = $row['campaign_name'];
+          if (in_array($cid, $chosen_campaigns)){
+            $coChecked = 'checked';
+            $coCheckedClass = "co-checked";
+          } else if(is_null($chosen_campaigns) && $cid == 2){
+            $coChecked = 'checked';
+            $coCheckedClass = "co-checked";
           }
+          echo "[<span class='$coCheckedClass'> <input type='checkbox' name='campaign[]' $coChecked value='$cid' class='campaign-checkbox' /> $campaign_name</span>] ";
+        }
         ?>
         <button class="btn btn-secondary" type="button" id="set-campaigns">Set Campaigns</button>
         <span id="campaign-select-options">Select <span class="faux-link" data-co="all">all</span> / <span class="faux-link" data-co="none">none</span> </span>
@@ -116,59 +116,52 @@
         /****** Getting query parameters BEGIN *******/
         
         var qs = window.location.search;
-        //console.log("qs: ", qs);
+        
         var post_split = qs.split("&");
-        //console.log("post split: ", post_split);
+        
         var campaign = [];
         var daLen = post_split.length;
         for (var i = 0; i < daLen; i++) {
-          //console.log("i: ", post_split[i]);
+         
           campaign.push(post_split[i].substr(post_split[i].indexOf("=")+1));
         }
-        //console.log("campaign (after splitting): ", campaign);
         
         /****** Getting query parameters END *******/
-        
-        //console.log("campaign.length: ", campaign.length);
 
-        
         // Set default campaign if none have been chosen.
         if(campaign.length == 1 && campaign[0] == ""){
           campaign = ["2"];
         } 
-        //console.log("campaign (just before using to get data): ", campaign);
+
         getData({
           campaign: campaign
         });
         // gen_data will not have the data yet.  
         // I know, I know, it bites.  getOverIt().
 
-
-
         // Receive the data and do something with it.
         function workWithGenData(gen_data){
-          //console.log("gen_data", gen_data);
-          
+
           /*********************************************************************
            * We want to get the formHelper out of the gen_data variable because
            * it could cause problems later on if we try to loop over the
            * properties.
            ********************************************************************/
-          var formHelper = gen_data.formHelper;
-          delete gen_data.formHelper;
+           var formHelper = gen_data.formHelper;
+           delete gen_data.formHelper;
 
           /*********************************************************************
            * Set up our Variables
            ********************************************************************/
-          var typeGenField = $("#typegen");
-          var numGenField = $("#numgen");
-          var generateButton = $("#generate");
-          var dataHolderContent = $("#data-content");
-          var presetInput = $("#presets-input");
-          var presetExamples = $("#preset-examples");
-          var clearButton = $("#genclear");
-          var regenButton = $("#regen");
-          var setCampaigns = $("#set-campaigns")
+           var typeGenField = $("#typegen");
+           var numGenField = $("#numgen");
+           var generateButton = $("#generate");
+           var dataHolderContent = $("#data-content");
+           var presetInput = $("#presets-input");
+           var presetExamples = $("#preset-examples");
+           var clearButton = $("#genclear");
+           var regenButton = $("#regen");
+           var setCampaigns = $("#set-campaigns")
 
           /********************************************************************
            * Set up our Event Handlers
@@ -198,12 +191,24 @@
 
             // Ugh, really James?  Get rid of this stuff
             presetsGenValue.pc = ["Andrelion", "Ossian", "Akiva", "Hash", "Isilme "];
-            //console.log("presetsGenValue", presetsGenValue);
 
             // Take the values in the form and generate some items.
             var genlist = generate_list(typeGenValue, numGenValue, presetsGenValue);
+
             // Take the generated items and spit it out to the screen.
             for(var i=0;i<genlist.length;i++){
+
+              // Some types can use some extra processing.  Call the functions here.
+              switch(typeGenValue){
+                case 'npc_name':
+                var post_randomized = "",
+                name = genlist[i];
+                
+                post_randomized = randomizeVowels(name);
+
+                genlist[i] = post_randomized;
+                break;
+              }
               dataHolderContent.append("<p>" + genlist[i] + "</p>");
             };
           });
@@ -229,10 +234,7 @@
             // co = campaign option
             var co = $(this).data("co");
             var coBoxes = $('input[name="campaign[]"]');
-            console.log("co: ", co);
-            console.log("coBoxes: ", coBoxes);
             for (i = 0; i < coBoxes.length; i++){
-              console.log("coBox: ", coBoxes[i]);
               if (co == "all"){
                 $(coBoxes[i]).prop('checked', true);
               }else if (co == "none"){
@@ -244,47 +246,30 @@
 
           // Apply the options to the "items of type ____" field.
           $.each(formHelper, function(datakey, string){
-            //console.log(datakey, string);
             typeGenField
             .append($("<option></option>")
-            .attr("value", datakey)
-            .text(string));
+              .attr("value", datakey)
+              .text(string));
           });
 
           // Set up the presets UI
           function presetsUI(optionSelected){
-            //console.log("optionSelected", optionSelected);
             var valueSelected = optionSelected.val();
             // var textSelected = optionSelected.text(); // ??unused??
             var presetValues = gen_data[valueSelected];
-	    
-	    //console.log("Orij Obj presetValues", presetValues);
-	    var presetValuesArray = [];
-	    for (prop in presetValues) {
-		      presetValuesArray.push(presetValues[prop]);
-	    }
-	    presetValuesArray.sort();
-            //console.log("Array PresetValues", presetValuesArray);
             
-	    var presetFormContainer = $("#preset-form");
-            /*
-	    var obj = arr.reduce(function(o, v, i) {
-		      o[i] = v;
-		        return o;
-	    }, {});
-	    */
-	    presetValues = presetValuesArray.reduce(function(o,v,i){
-		    o[i] = v;
-		    return o;
-	    }, {});
-	    //console.log("valueSelected: ", valueSelected);
-            //console.log("textSelectedpend();
-            //console.log("valueSelected: ", valueSelected);
-            //console.log("textSelected: ", textSelected);
-            //console.log("gen_data", gen_data);
+            var presetValuesArray = [];
+            for (prop in presetValues) {
+              presetValuesArray.push(presetValues[prop]);
+            }
+            presetValuesArray.sort();
+            
+            var presetFormContainer = $("#preset-form");
 
-            //console.log("presetValues (after sorting calamaty): ", presetValues);
-
+            presetValues = presetValuesArray.reduce(function(o,v,i){
+              o[i] = v;
+              return o;
+            }, {});
 
             // Clear out the list items from the examples list
             $(presetExamples).find("li").remove();
@@ -293,7 +278,6 @@
             var maxShow = 99;
             for(var prop in presetValues){
               if(i <= maxShow){
-                //console.log(presetValues[prop]);
                 $(presetExamples).find("ol").append("<li>" + presetValues[prop] + "</li>");
                 i++;
               }else{
@@ -305,10 +289,45 @@
           presetsUI($(typeGenField.find("option:selected")));
 
         }; // End of workWithGenData
+
+        // Take a name and return it with the vowels randomized.
+        // The idea here is to multiply the number of name varients.
+        function randomizeVowels(name){
+          // chars = the characters of the original name
+          // vowels = array to choose replacement vowles from
+          // retNameArray = an Array we use to assemble the modified name
+          // retNameString = the string we return
+          // patt = the regular expression pattern
+          var chars = name.split(''),
+          vowels = ["a", "e", "i", "o", "u"],
+          retNameArray = new Array,
+          retNameString = "",
+          patt = /^[aeiou]$/i;
+          // Loop over the array and look for vowels.  If we find a vowel, replace
+          // it with a random vowel.  Replacing with the same vowel is perfectly fine.
+          for(i=0;i<chars.length;i++){
+            if(patt.test(chars[i])){ // We have a vowel
+              var vowelOriginal = chars[i];
+              var vowelNew = vowels[Math.floor(Math.random()*vowels.length)];
+              retNameArray.push(vowelNew);
+            }else{ // No vowel
+              retNameArray.push(chars[i]);
+            }
+          }
+          retNameString = retNameArray.join("");
+          var retNameStringCap = capitalizeFirstLetter(retNameString);
+          return retNameStringCap;
+        }
+
+        // Names should always be capitalized.
+        function capitalizeFirstLetter(string) {
+          return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
       </script>
 
     </div>
   </body>
-</html>
+  </html>
 
 
