@@ -125,12 +125,13 @@ $(document).ready(function () {
 		// Looping over the NPCs
 		$.each(data, function (k, v) {
 			//console.log("k: ", k); // numeric index
-			//console.log("v: ", v); // all the values
+			console.log("v: ", v); // all the values
 
 			// Create a row div
 			$("<div/>", {
 				class: "row",
-				id: "row-" + k
+				id: "row-" + k,
+				"data-npcid": v.npcID
 			}).appendTo("#npcs");
 
 
@@ -213,7 +214,7 @@ $(document).ready(function () {
 					activity += '<div class="activity-description">' + a.activityDescription + '</div>';
 					activity += ' <div class="activity-toggler" id="' + activityTogglerID + '"><span>(' + activityTogglerText + ')</span></div>';
 					activity += ' <div class="activity-sorter"><span class="activity-sort-up glyphicon glyphicon-hand-up"></span> <span class="activity-sort-down glyphicon glyphicon-hand-down"></span></div>';
-					activity += ' <div class="activity-delete"><span data-activityid="'+a.activityID+'" class="activity-delete-btn glyphicon glyphicon-remove"></span></div>';
+					activity += ' <div class="activity-delete" data-activityid="'+a.activityID+'"><span class="activity-delete-btn glyphicon glyphicon-remove"></span></div>';
 					activity += '<div class="progress"><div class="progress-bar progress-bar-' + progressType + '" style="width:' + progressPct + ';">';
 					activity += "Day " + a.activityProgress + " of " + a.activityDuration;
 					activity += "</div></div>";
@@ -306,8 +307,15 @@ $(document).ready(function () {
 
 	// Delete an activity
 	$("#npcs").on("click", ".activity-delete", function(data){
-		console.log("delete activity");
-		console.log("activityid: ", $(this).data('activityid'));
+		var activityID = $(this).data('activityid');
+		console.log("activityID: ", activityID);
+		var data = {
+			q: 'activityDelete',
+			actid: activityID
+		};
+		$.getJSON('./getdbdata.php', data, function (data) {});
+		console.log('data: ', data);
+		location.reload(true);
 	});
 
 	// Add a new activity form
@@ -327,14 +335,14 @@ $(document).ready(function () {
 		console.log("clicky ad new button!!");
 		// Useful when finding the correct element to get the activity id from.
 		//$(this).parent().parent().prev().children().children("strong").css({backgroundColor: "#ff00ff"});
-		var npc = encodeURI($(this).parent().parent().prev().children().children("strong").text());
-		
+		var npcID = $(this).closest('.row').data('npcid');
+		console.log("npcID: ", npcID);
 		var activityType = encodeURI($(this).prev().prev().val());
 		var activityDesc = encodeURI($(this).prev().val());
 		
 		var data = {
 			q: 'activityAddNew',
-			npc: npc,
+			npcID: npcID,
 			activityDesc: activityDesc,
 			activityType: activityType
 		};

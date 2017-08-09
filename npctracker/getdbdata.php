@@ -58,19 +58,19 @@ switch($qp){
 		break;
 	case "activityAddNew":
 		
-		$npc = urldecode($_GET["npc"]);
+		$npcID = urldecode($_GET["npcID"]);
 		$activityType = urldecode($_GET{"activityType"});
 		$activityDesc = urldecode($_GET["activityDesc"]);
 		
-		$npcidsql ="SELECT npcID FROM npcs WHERE name = '" . $npc . "'";
-		var_export($npcidsql);
+		$npcidsql ="SELECT npcID FROM npcs WHERE npcID = $npcID";
+		var_dump($npcidsql);
 
 		// THE QUERY SEEMS TO FAIL WHEN A NAME CONTAINS A '.
 		
 		$getnpcid = mysqli_fetch_assoc(mysqli_query($mysqli, $npcidsql));
 		$npcid = $getnpcid['npcID'];
 		
-		var_export($getnpcid);
+		var_dump($getnpcid);
 		
 		
 		$sql = "INSERT INTO `activities` (`npcID`, `activityType`, `activityDuration`, `activityProgress`, `activityDescription`, `activityOrder`, `activityActive`) VALUES ($npcid, '$activityType', '5', '0', '$activityDesc', '5', '1')";
@@ -79,8 +79,8 @@ switch($qp){
 	case "activityDelete":
 		$sql = 'DELETE FROM `npctracker`.`activities` 
 		        WHERE `activities`.`activityID` = ' . $_GET["actid"];
-
 		break;
+
 	default:
 		$sql = ' SELECT n.*,a.*
           		   FROM npcs AS n
