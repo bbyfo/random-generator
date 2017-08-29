@@ -70,6 +70,52 @@ Npc.prototype.markup = function () {
 
 // Do stuff when the page is fully loaded
 $(document).ready(function () {
+	
+	/**************************
+	Build the Campaign Selector
+	**************************/
+	// Set up the HTML form
+	var campaignSelectorForm = $("<form/>", {
+		id: "campaign-selector-form"
+	});
+	var campaignSelectorSelect = $("<select/>", {
+		id: "campaign-selector-select"
+	});
+	campaignSelectorForm.append(campaignSelectorSelect);
+	$("#campaign-selector").append(campaignSelectorForm);
+
+	// Assemble the query string
+	var data = {
+		q: 'campaignsAll'
+	};
+	// Run the campaign query, get the data, build the select list items
+	$.getJSON('./getdbdata.php', data, function(data){
+		console.log("raw data: ", data);
+		$.each(data, function(k,v){
+			console.log("v: ", v);
+			var item = $("<option/>", {
+				value: v.campaignID,
+				text: v.campaignName
+			});
+
+			campaignSelectorSelect.append(item);
+		});
+	});
+	// Event handler for Campaign Selector
+	$("#campaign-selector-form").on("change", "#campaign-selector-select", function (event) {
+		// Get the selected option
+		var url = [location.protocol, '//', location.host, location.pathname].join('');
+		var selectedCampaign = $(this).val();
+		var queryParams = {};
+		queryParams.campaignID = selectedCampaign;
+		var queryString = $.param(queryParams);
+		console.log("FinalDestination: ", url + '?' + queryString);
+		//window.location.href = url + '?' + queryString;
+	});
+
+	/**************************
+	Build the NPC area
+	**************************/
 	$("#npcs").animate({
 		opacity: "1"
 	}, 750);
@@ -79,9 +125,9 @@ $(document).ready(function () {
 
 	 */
 
-	// Get All NPCs
+	// Get All NPCs for the current campaign
 	var data = {
-		q: 'npcsAll'
+		q: 'npcsAllByCampaign'
 	};
 	$.getJSON('./getdbdata.php', data, function (data) {
 		//console.log("raw data: ", data);

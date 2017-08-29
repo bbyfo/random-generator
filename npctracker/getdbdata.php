@@ -33,8 +33,13 @@ switch($qp){
 	case "decrementDay":
 		$sql = "UPDATE activities SET activityProgress = activityProgress - 1 WHERE activityProgress > 0 AND activityActive = 1";
 		break;
-	case "npcsAll":
-		$sql  = 'SELECT * FROM npcs ORDER BY name';
+	case "npcsAllByCampaign":
+		$campaignID = 1;
+		$params = $_GET;
+		if(isset($_GET["campaignID"])){
+			$campaignID = $_GET["campaignID"];
+		}
+		$sql  = 'SELECT * FROM npcs WHERE campaignID = ' . $campaignID . ' ORDER BY name';
 		break;
 	case "activitiesAll":
 		$sql = 'SELECT * FROM activities ORDER BY activityOrder';
@@ -63,15 +68,11 @@ switch($qp){
 		$activityDesc = urldecode($_GET["activityDesc"]);
 		
 		$npcidsql ="SELECT npcID FROM npcs WHERE npcID = $npcID";
-		var_dump($npcidsql);
 
 		// THE QUERY SEEMS TO FAIL WHEN A NAME CONTAINS A '.
 		
 		$getnpcid = mysqli_fetch_assoc(mysqli_query($mysqli, $npcidsql));
 		$npcid = $getnpcid['npcID'];
-		
-		var_dump($getnpcid);
-		
 		
 		$sql = "INSERT INTO `activities` (`npcID`, `activityType`, `activityDuration`, `activityProgress`, `activityDescription`, `activityOrder`, `activityActive`) VALUES ($npcid, '$activityType', '5', '0', '$activityDesc', '5', '1')";
 		
@@ -79,6 +80,10 @@ switch($qp){
 	case "activityDelete":
 		$sql = 'DELETE FROM `npctracker`.`activities` 
 		        WHERE `activities`.`activityID` = ' . $_GET["actid"];
+		break;
+
+	case "campaignsAll":
+		$sql = 'SELECT * FROM `campaigns` ORDER BY campaignName';
 		break;
 
 	default:
