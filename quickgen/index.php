@@ -29,6 +29,7 @@
     $dbhost = (getenv('MYSQL_HOST') ? getenv('MYSQL_HOST') : "localhost");
     $dbuser = (getenv('MYSQL_USER') ? getenv('MYSQL_USER') : "root");
     $dbpwd = (getenv('MYSQL_PASSWORD') ? getenv('MYSQL_PASSWORD') : "root");
+    $dbname = (getenv('MYSQL_DATABASE' ? getenv('MYSQL_DATABASE') : "rpgaid");
     $mysqli = new mysqli($dbhost, $dbuser, $dbpwd, "rpgaid");
       // Generate the SQL
     $campaigns_sql = "SELECT DISTINCT cid, campaign_name, campaign_desc
