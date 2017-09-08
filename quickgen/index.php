@@ -43,16 +43,18 @@
     if(!isset($_GET['campaign'])){
       $chosen_campaigns[] = 2;
     }else{
+      echo "begin else<pre>";
+      var_dump($chosen_campaigns);
+      var_dump($_GET['campaign']);
+      echo "</pre>end else";
+      // */
      foreach($_GET['campaign'] as $c){
       $chosen_campaigns[] = $c;
      }
     }
    
        
-      echo "<pre>";
-      var_dump($chosen_campaigns);
-      echo "</pre>";
-      // */
+
       ?>
       <!-- PHP Code End -->
       
