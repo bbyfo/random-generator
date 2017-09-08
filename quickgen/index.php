@@ -46,7 +46,7 @@
       $chosen_campaigns = $_GET['campaign'];
     }
    
-       /*
+       
       echo "<pre>";
       var_dump($chosen_campaigns);
       echo "</pre>";
