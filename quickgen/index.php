@@ -43,7 +43,9 @@
     if(!isset($_GET['campaign'])){
       $chosen_campaigns = array(2);
     }else{
-      $chosen_campaigns = array($_GET['campaign']);
+     foreach($_GET['campaign'] as $c){
+      $chosen_campaigns[] = $c;
+     }
     }
    
        
