@@ -1,12 +1,13 @@
 <?php
 
-$output = array();
-// Connect to database server
-$dbhost = (getenv('OPENSHIFT_MYSQL_DB_HOST') ? getenv('OPENSHIFT_MYSQL_DB_HOST') : "localhost");
-$dbuser = (getenv('OPENSHIFT_MYSQL_DB_USERNAME') ? getenv('OPENSHIFT_MYSQL_DB_USERNAME') : "root");
-$dbpwd = (getenv('OPENSHIFT_MYSQL_DB_PASSWORD') ? getenv('OPENSHIFT_MYSQL_DB_PASSWORD') : "root");
+      // Connect to database server
+    $dbhost = (getenv('MYSQL_HOST') ? getenv('MYSQL_HOST') : "localhost");
+    $dbuser = (getenv('MYSQL_USER') ? getenv('MYSQL_USER') : "root");
+    $dbpwd = (getenv('MYSQL_PASSWORD') ? getenv('MYSQL_PASSWORD') : "root");
+    $dbname = (getenv('MYSQL_DATABASE') ? getenv('MYSQL_DATABASE') : "rpgaid");
+    $mysqli = new mysqli($dbhost, $dbuser, $dbpwd, $dbname);
 
-$mysqli = new mysqli($dbhost, $dbuser, $dbpwd, "rpgaid");
+
 
 //Step3
 $amt = (isset($_GET['amt']) ? $_GET['amt'] : 100);
