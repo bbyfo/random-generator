@@ -44,11 +44,13 @@
       $chosen_campaigns[] = 2;
     }else{
       echo "begin else<pre>";
-      var_dump($chosen_campaigns);
-      var_dump($_GET['campaign']);
-      echo "</pre>end else";
+      //var_dump($chosen_campaigns);
+      var_dump($_GET);
+      //var_dump($_GET['campaign']);
+      echo "</pre>end else<br />";
       // */
      foreach($_GET['campaign'] as $c){
+      echo $c . "<br />";
       $chosen_campaigns[] = $c;
      }
     }
