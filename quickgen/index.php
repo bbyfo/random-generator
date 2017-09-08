@@ -38,8 +38,9 @@
       // Execute the SQL query
     $campaigns_results = $mysqli->query($campaigns_sql);
 
+
     // Determine if any checkboxes should be pre-checked
-    if(!$_GET['campaign']){
+    if(!isset($_GET['campaign'])){
       $chosen_campaigns = array(2);
     }else{
       $chosen_campaigns = $_GET['campaign'];
