@@ -43,7 +43,7 @@
     if(!isset($_GET['campaign'])){
       $chosen_campaigns = array(2);
     }else{
-      $chosen_campaigns = $_GET['campaign'];
+      $chosen_campaigns = array($_GET['campaign']);
     }
    
        
