@@ -40,6 +40,9 @@
 
       // Determine if any checkboxes should be pre-checked
     $chosen_campaigns = $_GET['campaign'];
+    if(!$chosen_campaigns){
+      $chosen_campaigns = array(2);
+    }
        /*
       echo "<pre>";
       var_dump($chosen_campaigns);
