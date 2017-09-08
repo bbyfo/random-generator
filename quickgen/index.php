@@ -26,9 +26,9 @@
     <!-- PHP Code Begin -->
     <?php
       // Connect to database server
-    $dbhost = (getenv('OPENSHIFT_MYSQL_DB_HOST') ? getenv('OPENSHIFT_MYSQL_DB_HOST') : "localhost");
-    $dbuser = (getenv('OPENSHIFT_MYSQL_DB_USERNAME') ? getenv('OPENSHIFT_MYSQL_DB_USERNAME') : "root");
-    $dbpwd = (getenv('OPENSHIFT_MYSQL_DB_PASSWORD') ? getenv('OPENSHIFT_MYSQL_DB_PASSWORD') : "root");
+    $dbhost = (getenv('MYSQL_HOST') ? getenv('MYSQL_HOST') : "localhost");
+    $dbuser = (getenv('MYSQL_USER') ? getenv('MYSQL_USER') : "root");
+    $dbpwd = (getenv('MYSQL_PASSWORD') ? getenv('MYSQL_PASSWORD') : "root");
     $mysqli = new mysqli($dbhost, $dbuser, $dbpwd, "rpgaid");
       // Generate the SQL
     $campaigns_sql = "SELECT DISTINCT cid, campaign_name, campaign_desc
