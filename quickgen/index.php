@@ -42,6 +42,7 @@
     // Determine if any checkboxes should be pre-checked
     if(!isset($_GET['campaign'])){
       $chosen_campaigns[] = 2;
+      var_dump($_GET);
     }else{
       echo "begin else<pre>";
       //var_dump($chosen_campaigns);
@@ -49,9 +50,12 @@
       //var_dump($_GET['campaign']);
       echo "</pre>end else<br />";
       // */
-     foreach($_GET['campaign'] as $c){
-      echo $c . "<br />";
-      $chosen_campaigns[] = $c;
+     foreach($_GET as $k => $v){
+      echo $v . "<br />";
+      foreach($v as $campaign){
+        $chosen_campaigns[] = $campaign;
+      }
+      
      }
     }
    
