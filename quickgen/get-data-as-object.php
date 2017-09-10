@@ -90,7 +90,7 @@ while ($row = $datakeys_results->fetch_array(MYSQLI_ASSOC)) {
     }
     /*
       print "<pre>bobo: ";
-      print_r($bobo);
+      var_export($bobo);
       print "</pre>";
       // */
   }
@@ -102,9 +102,9 @@ while ($row = $datakeys_results->fetch_array(MYSQLI_ASSOC)) {
 
 
 // Encode and spit out the output
-/*
+///*
   print "<pre>output: ";
-  print_r($output);
+  var_export($output);
   print "</pre>";
   // */
 
