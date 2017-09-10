@@ -1,5 +1,7 @@
 <?php
 header('Content-Type: application/json');
+?>
+<?php
 
 $output = new stdClass();
 $output->formHelper = array();
