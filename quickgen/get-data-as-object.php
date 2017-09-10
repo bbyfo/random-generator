@@ -20,7 +20,7 @@ if(!$campaign_params){
   $campaign_params = array(2);
 }
 
-///*
+/*
 echo "campaign_params<pre>";
 var_dump($campaign_params);
 echo "</pre>";
@@ -31,7 +31,7 @@ foreach($campaign_params as $p) {
     $campaign_params_sanatized[] = $p;
   }
 }
-///*
+/*
 echo "campaign_params_sanatized<pre>";
 var_dump($campaign_params_sanatized);
 echo "</pre>";
@@ -41,7 +41,7 @@ echo "</pre>";
 $cids_for_in_clause = implode(',', $campaign_params_sanatized);
 
 
-///*
+/*
 echo "cids_for_in_clause<pre>";
 var_dump($cids_for_in_clause);
 echo "</pre>";
@@ -58,7 +58,7 @@ $datakeys_results = $mysqli->query($datakeys_sql);
 // Use the query results to build the data
 
 
-///*
+/*
 echo "datakeys_results<pre>";
 var_export($datakeys_results);
 echo "</pre>";
@@ -67,7 +67,7 @@ echo "</pre>";
 
 while ($row = $datakeys_results->fetch_array(MYSQLI_ASSOC)) {
   $stringholder = new stdClass();
-  ///*
+  /*
   echo "row<pre>";
   var_export($row);
   echo "</pre>";
