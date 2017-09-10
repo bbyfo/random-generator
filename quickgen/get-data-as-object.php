@@ -1,5 +1,5 @@
 <?php
-
+header('Content-Type: application/json');
 
 $output = new stdClass();
 $output->formHelper = array();
@@ -102,13 +102,13 @@ while ($row = $datakeys_results->fetch_array(MYSQLI_ASSOC)) {
 
 
 // Encode and spit out the output
-///*
+/*
   print "<pre>output: ";
   var_export($output);
   print "</pre>";
   // */
 
-$output->params = $_GET;
+$output->params = $campaign_params_sanatized;
 
 echo json_encode($output);
 ?>
