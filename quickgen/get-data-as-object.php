@@ -53,6 +53,13 @@ $datakeys_sql = "SELECT DISTINCT
    FROM templates
   WHERE cid IN (".$cids_for_in_clause.")
   ORDER BY title";
+
+///*
+echo "datakeys_sql<pre>";
+var_export($datakeys_sql);
+echo "</pre>";
+//*/
+  
 // Execute the query
 $datakeys_results = $mysqli->query($datakeys_sql);
 // Use the query results to build the data
