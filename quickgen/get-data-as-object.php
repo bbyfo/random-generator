@@ -58,7 +58,7 @@ $datakeys_results = $mysqli->query($datakeys_sql);
 // Use the query results to build the data
 
 
-/*
+///*
 echo "datakeys_results<pre>";
 var_export($datakeys_results);
 echo "</pre>";
@@ -110,5 +110,5 @@ while ($row = $datakeys_results->fetch_array(MYSQLI_ASSOC)) {
 
 $output->params = $campaign_params_sanatized;
 
-echo json_encode($output);
+print json_encode($output);
 ?>
