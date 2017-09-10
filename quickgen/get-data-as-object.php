@@ -14,25 +14,38 @@ $output->formHelper = array();
 // DUMMY DATA 
 //$campaign_params = array(0, 'SELECT * FROM campaigns;');
 
-$campaign_params = (isset($_GET['campaign']) ? $_GET['campaign'] : 0);
+$campaign_params = (isset($_GET['campaign']) ? $_GET['campaign'] : FALSE);
 
-/*
-echo "<pre>";
+if(!$campaign_params){
+  $campaign_params = array(2);
+}
+
+///*
+echo "campaign_params<pre>";
 var_dump($campaign_params);
 echo "</pre>";
-*/
+//*/
 $campaign_params_sanatized = array();
 foreach($campaign_params as $p) {
   if(is_numeric($p)){
     $campaign_params_sanatized[] = $p;
   }
 }
+///*
+echo "campaign_params_sanatized<pre>";
+var_dump($campaign_params_sanatized);
+echo "</pre>";
+//*/
 
-//var_dump($campaign_params_sanatized);
 
 $cids_for_in_clause = implode(',', $campaign_params_sanatized);
 
-//var_dump($cids_for_in_clause);
+
+///*
+echo "cids_for_in_clause<pre>";
+var_dump($cids_for_in_clause);
+echo "</pre>";
+//*/
 
 // Get the metadata.  This is used to assemble the final gen_data variable in the JS, which is used by the generator.js file.
 $datakeys_sql = "SELECT DISTINCT
@@ -43,6 +56,15 @@ $datakeys_sql = "SELECT DISTINCT
 // Execute the query
 $datakeys_results = $mysqli->query($datakeys_sql);
 // Use the query results to build the data
+
+
+///*
+echo "datakeys_results<pre>";
+var_export($datakeys_results);
+echo "</pre>";
+//*/
+
+
 while ($row = $datakeys_results->fetch_array(MYSQLI_ASSOC)) {
   $stringholder = new stdClass();
   /*
