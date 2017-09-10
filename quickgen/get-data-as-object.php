@@ -119,5 +119,6 @@ while ($row = $datakeys_results->fetch_array(MYSQLI_ASSOC)) {
 
 $output->params = $campaign_params_sanatized;
 
-print json_encode($output);
+$output = json_encode($output);
+echo $output;
 ?>
