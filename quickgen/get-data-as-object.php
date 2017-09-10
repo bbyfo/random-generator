@@ -67,12 +67,11 @@ echo "</pre>";
 
 while ($row = $datakeys_results->fetch_array(MYSQLI_ASSOC)) {
   $stringholder = new stdClass();
-  /*
-    print "<pre>row: ";
-    print_r($row);
-    print "</pre>";
-    // */
-
+  ///*
+  echo "row<pre>";
+  var_export($row);
+  echo "</pre>";
+  //*/
   // for each metadata datakey, grab all the actual data and prepare/assemble it for output
   $mystring = $row['datakey'];
   $strings_sql = "SELECT gdata.string, gdata.`range`, tpls.title
