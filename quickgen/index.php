@@ -22,6 +22,8 @@
   <title>Quick Generate - RPGAid</title>
 </head>
 <body>
+<h1>PHP Notice:  Array to string conversion in quickgen/index.php on line 54</h1>
+<p>This crap needs to be rewritten so it works with PHP &gt; 5.5. Note the "error" above is hardcoded HTML.</p>
   <div class="container-fluid">
     <!-- PHP Code Begin -->
     <?php
@@ -42,20 +44,11 @@
     // Determine if any checkboxes should be pre-checked
     if(!isset($_GET['campaign'])){
       $chosen_campaigns[] = 2;
-      var_dump($_GET);
     }else{
-      echo "begin else<pre>";
-      //var_dump($chosen_campaigns);
-      var_dump($_GET);
-      //var_dump($_GET['campaign']);
-      echo "</pre>end else<br />";
-      // */
      foreach($_GET as $k => $v){
-      echo $v . "<br />";
       foreach($v as $campaign){
         $chosen_campaigns[] = $campaign;
       }
-      
      }
     }
    
