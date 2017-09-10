@@ -54,7 +54,7 @@ $datakeys_sql = "SELECT DISTINCT
   WHERE cid IN (".$cids_for_in_clause.")
   ORDER BY title";
 
-///*
+/*
 echo "datakeys_sql<pre>";
 var_export($datakeys_sql);
 echo "</pre>";
@@ -65,7 +65,7 @@ $datakeys_results = $mysqli->query($datakeys_sql);
 // Use the query results to build the data
 
 
-///*
+/*
 echo "datakeys_results<pre>";
 var_export($datakeys_results);
 echo "</pre>";
