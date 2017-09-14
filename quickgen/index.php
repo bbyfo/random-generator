@@ -27,6 +27,7 @@
   <div class="container-fluid">
     <!-- PHP Code Begin -->
     <?php
+    echo 'Current PHP version: ' . phpversion();
       // Connect to database server
     $dbhost = (getenv('MYSQL_HOST') ? getenv('MYSQL_HOST') : "localhost");
     $dbuser = (getenv('MYSQL_USER') ? getenv('MYSQL_USER') : "root");
